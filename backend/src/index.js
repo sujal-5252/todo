@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(Express.json());
-app.use(morgan("combined"));
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.json({ status: "running" });
