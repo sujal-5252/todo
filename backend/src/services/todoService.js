@@ -1,5 +1,5 @@
-import db from "../db/db.js";
-import { randomUUID } from "node:crypto";
+import db from '../db/db.js';
+import { randomUUID } from 'node:crypto';
 
 class TodoService {
   db = null;
@@ -26,22 +26,58 @@ class TodoService {
     tags = [],
     updatedAt = null,
   }) {
-    if (!title) throw new Error("Title must be provided");
-    const newTodo = { id, title, description, createdAt, isCompleted, isImportant, tags, updatedAt };
+    if (!title) throw new Error('Title must be provided');
+    if (!description) description = null;
+    if (isCompleted === undefined) isCompleted = false;
+    if (isImportant === undefined) isImportant = false;
+    if (tags === undefined) tags = [];
+
+    const newTodo = {
+      id,
+      title,
+      description,
+      createdAt,
+      isCompleted,
+      isImportant,
+      tags,
+      updatedAt,
+    };
+
     db.data.push(newTodo);
     await db.save();
     return newTodo;
   }
 
-  async updateTodo(id, { title, description, createdAt, isCompleted, isImportant, tags, updatedAt = new Date() }) {
+  async updateTodo(
+    id,
+    {
+      title,
+      description,
+      createdAt,
+      isCompleted,
+      isImportant,
+      tags,
+      updatedAt = new Date(),
+    }
+  ) {
     const idx = db.data.findIndex((data) => data.id === id);
-    if (idx != -1) db.data[idx] = { id, title, description, createdAt, isCompleted, isImportant, tags, updatedAt };
+    if (idx != -1)
+      db.data[idx] = {
+        id,
+        title,
+        description,
+        createdAt,
+        isCompleted,
+        isImportant,
+        tags,
+        updatedAt,
+      };
     else throw new Error(`Todo with id ${id} does not exist`);
     await db.save();
   }
 
   async deleteTodo(id) {
-    db.data.filter((data) => data.id !== id);
+    db.data = db.data.filter((data) => data.id !== id);
     await db.save();
   }
 }

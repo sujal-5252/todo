@@ -1,9 +1,9 @@
-import TodoService from "../services/todoService.js";
-import db from "../db/db.js";
+import TodoService from '../services/todoService.js';
+import db from '../db/db.js';
 
 const todoService = new TodoService(db);
 
-async function getAllTodo(req, res) {
+async function getAllTodo(_req, res) {
   const todos = todoService.fetchAllTodo();
   res.json(todos);
 }
@@ -17,4 +17,12 @@ async function getTodoById(req, res) {
   res.json(todo);
 }
 
-export { getAllTodo, getTodoById };
+async function createTodo(req, res) {
+  const newTodo = req.body;
+  console.log(req.body);
+
+  const result = await todoService.createTodo(newTodo);
+  res.send(result);
+}
+
+export { getAllTodo, getTodoById, createTodo };
