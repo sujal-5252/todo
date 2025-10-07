@@ -2,7 +2,7 @@ import * as z from 'zod';
 
 const Todo = z.object({
   title: z.string().nonempty(),
-  description: z.string().optional(),
+  description: z.string().optional().nullable(),
   createdAt: z.date().optional().default(new Date()),
   isCompleted: z.boolean().optional().default(false),
   isImportant: z.boolean().optional().default(false),

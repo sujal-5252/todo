@@ -1,4 +1,4 @@
-import db from '../db/db.js';
+// import db from '../db/db.js';
 import { randomUUID } from 'node:crypto';
 
 class TodoService {
@@ -8,11 +8,11 @@ class TodoService {
   }
 
   fetchAllTodo() {
-    return db.data;
+    return this.db.data;
   }
 
   fetchTodoById(id) {
-    const todo = db.data.find((todo) => todo.id === id);
+    const todo = this.db.data.find((todo) => todo.id === id);
     return todo || null;
   }
 
@@ -43,8 +43,8 @@ class TodoService {
       updatedAt,
     };
 
-    db.data.push(newTodo);
-    await db.save();
+    this.db.data.push(newTodo);
+    await this.db.save();
     return newTodo;
   }
 
@@ -60,25 +60,29 @@ class TodoService {
       updatedAt = new Date(),
     }
   ) {
-    const idx = db.data.findIndex((data) => data.id === id);
-    if (idx != -1)
-      db.data[idx] = {
-        id,
-        title,
-        description,
-        createdAt,
-        isCompleted,
-        isImportant,
-        tags,
-        updatedAt,
-      };
-    else throw new Error(`Todo with id ${id} does not exist`);
-    await db.save();
+    const idx = this.db.data.findIndex((data) => data.id === id);
+
+    if (idx === -1) {
+      throw new Error(`Todo with id ${id} does not exist`);
+    }
+
+    this.db.data[idx] = {
+      id,
+      title,
+      description,
+      createdAt,
+      isCompleted,
+      isImportant,
+      tags,
+      updatedAt,
+    };
+
+    await this.db.save();
   }
 
   async deleteTodo(id) {
-    db.data = db.data.filter((data) => data.id !== id);
-    await db.save();
+    this.db.data = this.db.data.filter((data) => data.id !== id);
+    await this.db.save();
   }
 }
 
