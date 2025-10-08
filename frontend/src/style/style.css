@@ -25,6 +25,22 @@ svg {
   height: 30px;
 }
 
+textarea {
+  resize: none;
+}
+textarea::-webkit-scrollbar {
+  width: 5px;
+}
+
+textarea::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 0, 234, 0.3);
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 139, 255);
+  outline: 1px solid rgb(0, 128, 255);
+}
+
 h2 {
   font-family: 'Paytone One';
   font-size: 22px;
@@ -35,6 +51,8 @@ h2 {
 
 .hidden {
   display: none !important;
+  opacity: 0;
+  height: 0px;
 }
 
 nav {
@@ -96,9 +114,48 @@ nav .create:hover {
   background-color: white;
   color: black;
 }
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.main .menu {
+  padding: 20px;
+  display: flex;
+  gap: 4px;
+}
+
+.search {
+  display: flex;
+  background-color: rgb(232, 243, 255);
+  align-items: center;
+  padding-left: 4px;
+  width: 50%;
+  border-radius: 6px;
+}
+
+.search input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 4px;
+}
+
+.search input:focus {
+  border: none;
+  outline: none;
+}
+
+.search img {
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+}
+
 .todo-container {
   display: grid;
-  padding: 20px;
+  padding: 0px 16px;
   row-gap: 12px;
   column-gap: 12px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -107,16 +164,20 @@ nav .create:hover {
 
 .todo {
   color: black;
-  min-height: 150px;
-  max-height: 200px;
+  min-height: 200px;
+  max-height: 250px;
   background-color: white;
   border-radius: 6px;
   padding: 6px;
   display: grid;
   gap: 6px;
-  grid-template-columns: auto min-content;
+  grid-template-columns: 70px auto min-content;
   grid-template-rows: min-content auto 50px;
   border: 1px solid gray;
+}
+
+.todo * {
+  transition: background-color 10s ease;
 }
 
 .todo .title {
@@ -128,6 +189,11 @@ nav .create:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  grid-column: span 2;
+}
+
+.todo .title:focus {
+  background-color: #ee2929;
 }
 
 .todo .is-important {
@@ -147,7 +213,7 @@ nav .create:hover {
   width: 30px;
 }
 .todo .is-important svg:hover {
-  fill: yellow;
+  fill: rgb(255, 239, 147);
 }
 
 .todo .is-important svg.important {
@@ -160,6 +226,11 @@ nav .create:hover {
   background-color: rgb(169, 220, 140);
   padding: 8px;
   border: 1px solid gray;
+  grid-column: span 3;
+}
+
+.todo .description:focus {
+  background-color: rgb(98, 244, 98);
 }
 
 .todo button {
@@ -172,9 +243,14 @@ nav .create:hover {
   color: white;
 }
 
+.todo .update {
+  background-color: rgb(255, 230, 90);
+  border-bottom-left-radius: 6px;
+  border: 1px solid gray;
+  padding: 8px;
+}
 .todo .mark-complete {
   background-color: rgb(17, 158, 246);
-  border-bottom-left-radius: 6px;
   border: 1px solid gray;
   padding: 8px;
 }
@@ -186,6 +262,36 @@ nav .create:hover {
   padding: 8px;
 }
 
+.todo.completed * {
+  color: white;
+}
+
+.todo.completed .title {
+  text-decoration: line-through;
+  background-color: #3b3131;
+}
+
+.todo.completed .description {
+  text-decoration: line-through;
+  background-color: #26282a;
+}
+
+.todo.completed .is-important {
+  background-color: #676767;
+}
+
+.todo.completed .update {
+  background-color: #555d50;
+}
+
+.todo.completed .mark-complete {
+  background-color: black;
+}
+
+.todo.completed .delete {
+  background-color: #534b4f;
+}
+
 .todo-form {
   grid-column: 1/3;
   grid-row: 2/3;
@@ -195,6 +301,7 @@ nav .create:hover {
   justify-content: center;
   gap: 12px;
   height: 100%;
+  transition: opacity 5s ease;
 }
 
 .todo-form .input-container {
@@ -231,6 +338,59 @@ nav .create:hover {
   position: relative;
   transform: translateY(4px);
   box-shadow: 0px 0px 0px #bafec2;
+}
+
+.todo-form.hidden ~ .sidebar {
+  grid-row: 2 / -1;
+}
+
+@media (max-width: 768px) {
+  nav {
+    grid-column: span 3;
+  }
+  .sidebar {
+    display: none;
+  }
+  .main {
+    grid-column: span 3;
+  }
+
+  .todo-form {
+    padding: 20px;
+    grid-column: span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .todo-form .input-container input {
+    width: 60vw;
+  }
+
+  .search {
+    width: 100%;
+  }
+}
+
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 25%;
+  z-index: 1000;
+}
+
+.toast {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
 }
 /* * {
   outline: 1px solid red;

@@ -26,4 +26,42 @@ async function getAllTags() {
   return tags;
 }
 
-export { getAllTodo, createTodo, getAllTags };
+async function updateTodo(id, newTodo) {
+  const response = await api.put(`/todo/${id}`, newTodo);
+  console.log(response);
+}
+
+async function deleteTodo(id) {
+  const response = await api.delete(`/todo/${id}`);
+  console.log(response);
+}
+
+async function getTodoByTag(tag) {
+  const todos = await getAllTodo();
+  return todos.filter((todo) => todo.tags.includes(tag));
+}
+
+async function getTodoByQuery(query) {
+  const todos = await getAllTodo();
+  const result = todos.filter((todo) => {
+    console.log(query);
+    console.log(todo.title);
+    console.log(todo.title.includes(query));
+    return (
+      todo.title.toLowerCase().includes(query.toLowerCase()) ||
+      todo.description.toLowerCase().includes(query.toLowerCase())
+    );
+  });
+  console.log(result);
+  return result;
+}
+
+export {
+  getAllTodo,
+  createTodo,
+  getAllTags,
+  updateTodo,
+  deleteTodo,
+  getTodoByTag,
+  getTodoByQuery,
+};

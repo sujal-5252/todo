@@ -1,28 +1,60 @@
-import TodoService from '../services/todoService.js';
-import db from '../db/db.js';
-
-const todoService = new TodoService(db);
-
-async function getAllTodo(_req, res) {
-  const todos = todoService.fetchAllTodo();
-  res.json(todos);
-}
-
-async function getTodoById(req, res) {
-  const todo = todoService.fetchTodoById(req.params.id);
-  if (!todo) {
-    res.status(404);
-    throw new Error(`Todo with id ${req.params.id} not found`);
+class TodoController {
+  constructor(todoService) {
+    console.log(todoService);
+    this.todoService = todoService;
   }
-  res.json(todo);
+  getAllTodo = async (_req, res, next) => {
+    try {
+      const todos = await this.todoService.fetchAllTodo();
+      res.json(todos);
+    } catch (err) {
+      next(err);
+    }
+  };
+  // async getTodoById(req, res, next) {
+  //   try {
+  //     const todo = this.todoService.fetchTodoById(req.params.id);
+  //     if (!todo) {
+  //       res.status(404);
+  //       throw new Error(`Todo with id ${req.params.id} not found`);
+  //     }
+  //     res.json(todo);
+  //   } catch (err) {
+  //     next(err);
+  //   }
+  // }
+
+  createTodo = async (req, res, next) => {
+    try {
+      const newTodo = req.body;
+      console.log(req.body);
+
+      const result = await this.todoService.createTodo(newTodo);
+      res.send(result);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  updateTodo = async (req, res, next) => {
+    try {
+      const newTodo = req.body;
+      await this.todoService.updateTodo(req.params.id, newTodo);
+      res.end();
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  deleteTodo = async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      await this.todoService.deleteTodo(id);
+      res.end();
+    } catch (err) {
+      next(err);
+    }
+  };
 }
 
-async function createTodo(req, res) {
-  const newTodo = req.body;
-  console.log(req.body);
-
-  const result = await todoService.createTodo(newTodo);
-  res.send(result);
-}
-
-export { getAllTodo, getTodoById, createTodo };
+export default TodoController;
