@@ -7,6 +7,7 @@ class TodoController {
     try {
       const { query, tag, sortBy } = req.query;
       const todos = await this.todoService.fetchAllTodo(query, tag, sortBy);
+
       res.json(todos);
     } catch (err) {
       next(err);
@@ -31,6 +32,7 @@ class TodoController {
       console.log(req.body);
 
       const result = await this.todoService.createTodo(newTodo);
+
       res.send(result);
     } catch (err) {
       next(err);
@@ -40,6 +42,7 @@ class TodoController {
   updateTodo = async (req, res, next) => {
     try {
       const newTodo = req.body;
+
       await this.todoService.updateTodo(req.params.id, newTodo);
       res.end();
     } catch (err) {
@@ -50,6 +53,7 @@ class TodoController {
   deleteTodo = async (req, res, next) => {
     try {
       const id = req.params.id;
+
       await this.todoService.deleteTodo(id);
       res.end();
     } catch (err) {

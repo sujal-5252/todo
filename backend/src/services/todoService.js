@@ -48,15 +48,19 @@ class TodoService {
     if (!title) {
       throw new Error('Title must be provided');
     }
+
     if (!description) {
       description = null;
     }
+
     if (isCompleted === undefined) {
       isCompleted = false;
     }
+
     if (isImportant === undefined) {
       isImportant = false;
     }
+
     if (tags === undefined) {
       tags = [];
     }
@@ -68,8 +72,8 @@ class TodoService {
       isImportant,
       tags,
     });
-    await todo.save();
 
+    await todo.save();
     return todo;
   }
 
@@ -79,15 +83,19 @@ class TodoService {
     if (title) {
       newTodo.title = title;
     }
+
     if (description) {
       newTodo.description = description;
     }
+
     if (isCompleted !== undefined) {
       newTodo.isCompleted = isCompleted;
     }
+
     if (isImportant !== undefined) {
       newTodo.isImportant = isImportant;
     }
+
     if (tags !== undefined) {
       newTodo.tags = tags;
     }

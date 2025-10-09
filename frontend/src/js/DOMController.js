@@ -104,8 +104,11 @@ class DOMController {
         const id = e.target.parentElement.id;
         const todoEl = e.target.parentElement;
         const title = todoEl.querySelector('.title').value;
+
         if (!title) return;
+
         const description = todoEl.querySelector('.description').value;
+
         await this.todoService.updateTodo(id, { title, description });
         await this.updateTodoList();
         this.showToast('Data updated');
@@ -198,15 +201,17 @@ class DOMController {
     this.tagList.innerHTML = '';
 
     const list = document.createElement('li');
+
     list.textContent = 'All';
     list.classList.toggle('selected');
     list.addEventListener('click', tagHandler);
-
     this.tagList.appendChild(list);
 
     const tags = await this.todoService.getAllTags();
+
     tags.forEach((tag) => {
       const list = document.createElement('li');
+
       list.textContent = tag;
       list.addEventListener('click', tagHandler);
       this.tagList.appendChild(list);
@@ -215,6 +220,7 @@ class DOMController {
 
   addEventListeners() {
     const createButton = document.querySelector('.create');
+
     createButton.addEventListener('click', () =>
       this.todoFormContainer.classList.toggle('hidden')
     );
@@ -223,7 +229,7 @@ class DOMController {
       e.preventDefault();
 
       const titleInput = e.target.querySelector('input#title');
-      const descriptionInput = e.target.querySelector('input#description');
+      const descriptionInput = e.target.querySelector('textarea#description');
       const isImportantCheckbox = e.target.querySelector('input#is-important');
       const tagsInput = e.target.querySelector('input#tags');
 

@@ -11,12 +11,14 @@ class TodoService {
     );
     const todos = response.data;
     console.log(todos);
+
     return todos;
   }
 
   async createTodo(todo) {
     const response = await this.api.post('/todo', todo);
     console.log(response.data);
+
     return response.data;
   }
 
@@ -26,6 +28,7 @@ class TodoService {
     todos.forEach((todo) => {
       todo.tags.forEach((tag) => tags.add(tag));
     });
+
     return tags;
   }
 

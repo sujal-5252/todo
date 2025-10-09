@@ -5,6 +5,7 @@ export default function validateTodo(req, res, next) {
     res.status(400);
     throw new Error('Request body missing');
   }
+
   req.body = Todo.parse(req.body);
   next();
 }
