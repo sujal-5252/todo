@@ -1,9 +1,40 @@
 import Todo from '../models/Todo.js';
 
 class TodoService {
-  async fetchAllTodo() {
-    const todos = await Todo.find({});
+  async fetchAllTodo(query, tag, sortBy) {
+    let searchQuery;
+    if (tag && sortBy) {
+      searchQuery = {
+        $and: [
+          {
+            $or: [
+              { title: { $regex: query, $options: 'i' } },
+              { description: { $regex: query, $options: 'i' } },
+            ],
+          },
+          { tags: tag },
+        ],
+      };
+    } else if (tag) {
+      searchQuery = { tags: tag };
+    } else if (query) {
+      searchQuery = {
+        $or: [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } },
+        ],
+      };
+    } else {
+      searchQuery = {};
+    }
+
+    const sortQuery = sortBy
+      ? { isCompleted: 1, [sortBy]: -1 }
+      : { isCompleted: 1, createdAt: -1 };
+
+    const todos = await Todo.find(searchQuery).sort(sortQuery);
     console.log(todos);
+
     return todos;
   }
 
@@ -14,11 +45,22 @@ class TodoService {
     isImportant = false,
     tags = [],
   }) {
-    if (!title) throw new Error('Title must be provided');
-    if (!description) description = null;
-    if (isCompleted === undefined) isCompleted = false;
-    if (isImportant === undefined) isImportant = false;
-    if (tags === undefined) tags = [];
+    if (!title) {
+      throw new Error('Title must be provided');
+    }
+    if (!description) {
+      description = null;
+    }
+    if (isCompleted === undefined) {
+      isCompleted = false;
+    }
+    if (isImportant === undefined) {
+      isImportant = false;
+    }
+    if (tags === undefined) {
+      tags = [];
+    }
+
     const todo = new Todo({
       title,
       description,
@@ -27,18 +69,28 @@ class TodoService {
       tags,
     });
     await todo.save();
+
     return todo;
   }
 
   async updateTodo(id, { title, description, isCompleted, isImportant, tags }) {
     const newTodo = {};
-    if (title) newTodo.title = title;
 
-    if (description) newTodo.description = description;
-
-    if (isCompleted !== undefined) newTodo.isCompleted = isCompleted;
-    if (isImportant !== undefined) newTodo.isImportant = isImportant;
-    if (tags !== undefined) newTodo.tags = tags;
+    if (title) {
+      newTodo.title = title;
+    }
+    if (description) {
+      newTodo.description = description;
+    }
+    if (isCompleted !== undefined) {
+      newTodo.isCompleted = isCompleted;
+    }
+    if (isImportant !== undefined) {
+      newTodo.isImportant = isImportant;
+    }
+    if (tags !== undefined) {
+      newTodo.tags = tags;
+    }
 
     await Todo.findByIdAndUpdate(id, newTodo);
   }

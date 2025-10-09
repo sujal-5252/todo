@@ -3,9 +3,10 @@ class TodoController {
     console.log(todoService);
     this.todoService = todoService;
   }
-  getAllTodo = async (_req, res, next) => {
+  getAllTodo = async (req, res, next) => {
     try {
-      const todos = await this.todoService.fetchAllTodo();
+      const { query, tag, sortBy } = req.query;
+      const todos = await this.todoService.fetchAllTodo(query, tag, sortBy);
       res.json(todos);
     } catch (err) {
       next(err);
