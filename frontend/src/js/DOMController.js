@@ -1,13 +1,9 @@
-import {
-  getAllTodo,
-  getAllTags,
-  updateTodo,
-  createTodo,
-  deleteTodo,
-} from './todoService.js';
+import TodoService from './todoService.js';
 
 class DOMController {
   constructor() {
+    this.todoService = new TodoService();
+
     this.todoContainer = document.querySelector('.todo-container');
     this.tagList = document.querySelector('.tag-list');
     this.todoForm = document.querySelector('.todo-form');
@@ -56,7 +52,7 @@ class DOMController {
       sortBy = sortValue;
     }
 
-    const todos = await getAllTodo(query, tag, sortBy);
+    const todos = await this.todoService.getAllTodo(query, tag, sortBy);
     console.log(todos);
 
     this.todoContainer.innerHTML = '';
@@ -110,7 +106,7 @@ class DOMController {
         const title = todoEl.querySelector('.title').value;
         if (!title) return;
         const description = todoEl.querySelector('.description').value;
-        await updateTodo(id, { title, description });
+        await this.todoService.updateTodo(id, { title, description });
         await this.updateTodoList();
         this.showToast('Data updated');
       });
@@ -129,7 +125,10 @@ class DOMController {
           .classList.contains('important');
 
         console.log(isImportant);
-        await updateTodo(id, { title, isImportant: !isImportant });
+        await this.todoService.updateTodo(id, {
+          title,
+          isImportant: !isImportant,
+        });
         await this.updateTodoList();
       });
 
@@ -147,7 +146,10 @@ class DOMController {
         const isComplete = todoEl.classList.contains('completed');
         console.log(id, todoEl, title, isComplete);
 
-        await updateTodo(id, { title, isCompleted: !isComplete });
+        await this.todoService.updateTodo(id, {
+          title,
+          isCompleted: !isComplete,
+        });
         todoEl.classList.toggle('completed');
 
         await this.updateTodoList();
@@ -156,7 +158,7 @@ class DOMController {
       deleteButton.addEventListener('click', async (e) => {
         const id = e.currentTarget.parentElement.id;
 
-        await deleteTodo(id);
+        await this.todoService.deleteTodo(id);
         await this.updateTodoList();
         await this.updateTagList();
       });
@@ -202,7 +204,7 @@ class DOMController {
 
     this.tagList.appendChild(list);
 
-    const tags = await getAllTags();
+    const tags = await this.todoService.getAllTags();
     tags.forEach((tag) => {
       const list = document.createElement('li');
       list.textContent = tag;
@@ -234,7 +236,12 @@ class DOMController {
       console.log(tags);
       console.log({ title, description, isImportant, tags });
 
-      await createTodo({ title, description, isImportant, tags });
+      await this.todoService.createTodo({
+        title,
+        description,
+        isImportant,
+        tags,
+      });
       this.showToast('Todo created');
       await this.updateTodoList();
       await this.updateTagList();
