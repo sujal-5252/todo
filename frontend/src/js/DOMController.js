@@ -119,9 +119,6 @@ class DOMController {
 
         const id = e.currentTarget.parentElement.id;
         const todoEl = e.currentTarget.parentElement;
-        const title = todoEl.querySelector('.title').value;
-
-        if (!title) return;
 
         const isImportant = todoEl
           .querySelector('.is-important svg')
@@ -129,7 +126,6 @@ class DOMController {
 
         console.log(isImportant);
         await this.todoService.updateTodo(id, {
-          title,
           isImportant: !isImportant,
         });
         await this.updateTodoList();
@@ -142,20 +138,16 @@ class DOMController {
 
         const id = e.currentTarget.parentElement.id;
         const todoEl = e.currentTarget.parentElement;
-        const title = todoEl.querySelector('.title').value;
-
-        if (!title) return;
 
         const isComplete = todoEl.classList.contains('completed');
-        console.log(id, todoEl, title, isComplete);
+        console.log(id, todoEl, isComplete);
 
         await this.todoService.updateTodo(id, {
-          title,
           isCompleted: !isComplete,
         });
         todoEl.classList.toggle('completed');
 
-        await this.updateTodoList();
+        setTimeout(async () => await this.updateTodoList(), 400);
       });
 
       deleteButton.addEventListener('click', async (e) => {

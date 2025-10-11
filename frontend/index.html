@@ -8,75 +8,95 @@
     <title>vite-project</title>
   </head>
   <body>
-    <nav>
-      <div class="logo"><h1>TODOS</h1></div>
-      <button class="create">Create Todo</button>
-    </nav>
-    <div class="form-container hidden">
-      <form class="todo-form">
-        <div class="input-container">
-          <label for="title">Title:</label
-          ><input
-            type="text"
-            name="title"
-            id="title"
-            required
-            placeholder="Enter title..."
-          />
+    <div class="app" style="display: none">
+      <nav>
+        <div class="logo"><h1>TODOS</h1></div>
+        <button class="create">Create Todo</button>
+      </nav>
+      <div class="form-container hidden">
+        <form class="todo-form">
+          <div class="input-container">
+            <label for="title">Title:</label
+            ><input
+              type="text"
+              name="title"
+              id="title"
+              required
+              placeholder="Enter title..."
+            />
+          </div>
+          <div class="input-container">
+            <label for="description">Description:</label
+            ><textarea
+              name="description"
+              id="description"
+              placeholder="Enter description..."
+            ></textarea>
+          </div>
+          <div class="input-container">
+            <label for="title">Tags:</label
+            ><input
+              type="text"
+              name="tags"
+              id="tags"
+              placeholder="Enter tags(comma separated)..."
+            />
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" name="isImportant" id="is-important" />
+            <label for="is-important">Important?</label>
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="sidebar">
+        <h2>Tags</h2>
+        <ul class="tag-list">
+          <li>All</li>
+          <li>Work</li>
+          <li>College</li>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="menu">
+          <div class="search">
+            <img src="./src/assets/image.png" alt="" srcset="" /><input
+              type="text"
+              class="search"
+              placeholder="Enter your query...."
+            />
+          </div>
+          <div class="sort">
+            <label for="sort-input">Sort By:</label>
+            <select id="sort-input">
+              <option value="createdAt">Created</option>
+              <option value="updatedAt">Last Updated</option>
+              <option value="isImportant">Important</option>
+            </select>
+          </div>
         </div>
-        <div class="input-container">
-          <label for="description">Description:</label
-          ><textarea
-            name="description"
-            id="description"
-            placeholder="Enter description..."
-          ></textarea>
+        <div class="todo-container"></div>
+      </div>
+      <div id="toast-container"></div>
+    </div>
+
+    <div class="login">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+      <h1>Sign Up</h1>
+      <form>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" />
         </div>
-        <div class="input-container">
-          <label for="title">Tags:</label
-          ><input
-            type="text"
-            name="tags"
-            id="tags"
-            placeholder="Enter tags(comma separated)..."
-          />
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
         </div>
-        <div class="checkbox-container">
-          <input type="checkbox" name="isImportant" id="is-important" />
-          <label for="is-important">Important?</label>
-        </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Create Account</button>
       </form>
     </div>
-    <div class="sidebar">
-      <h2>Tags</h2>
-      <ul class="tag-list">
-        <li>All</li>
-        <li>Work</li>
-        <li>College</li>
-      </ul>
-    </div>
-    <div class="main">
-      <div class="menu">
-        <div class="search">
-          <img src="./src/assets/image.png" alt="" srcset="" /><input
-            type="text"
-            class="search"
-            placeholder="Enter your query...."
-          />
-        </div>
-        <div class="sort">
-          <label for="sort-input">Sort By:</label>
-
-          <select id="sort-input">
-            <option value="createdAt">Created</option>
-            <option value="updatedAt">Last Updated</option>
-            <option value="isImportant">Important</option>
-          </select>
-        </div>
-      </div>
-      <div class="todo-container"></div>
-    </div>
-    <div id="toast-container"></div>
   </body>
 </html>

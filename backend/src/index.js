@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import errorHandler from './middlewares/errorHandler.js';
 import todoRouter from './routers/todoRouter.js';
 import mongoose from 'mongoose';
+import authRouter from './routers/authRouter.js';
 
 const app = Express();
 const port = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
   res.json({ status: 'running' });
 });
 
+app.use('/api', authRouter);
 app.use('/api/todo', todoRouter);
 
 app.use(errorHandler);

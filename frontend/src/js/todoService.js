@@ -9,7 +9,7 @@ class TodoService {
     const response = await this.api.get(
       `/todo?tag=${tag}&sortBy=${sortBy}&query=${query}`
     );
-    const todos = response.data;
+    const todos = response.data.result;
     console.log(todos);
 
     return todos;

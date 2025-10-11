@@ -7,8 +7,14 @@ export default function errorHandler(err, _req, res, _next) {
   }
 
   if (err instanceof z.ZodError) {
-    res.json({ message: z.prettifyError(err) });
+    console.log(err.issues);
+    res.json({
+      success: false,
+      message: err.issues
+        .map((issue) => issue.path[0] + ': ' + issue.message)
+        .join(', '),
+    });
   } else {
-    res.json({ message: err.message });
+    res.json({ success: false, message: err.message });
   }
 }

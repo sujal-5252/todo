@@ -8,4 +8,8 @@ const Todo = z.object({
   tags: z.array(z.string()).optional(),
 });
 
-export { Todo };
+const TodoUpdate = Todo.extend({
+  title: z.string().nonempty().optional(),
+});
+
+export { Todo, TodoUpdate };

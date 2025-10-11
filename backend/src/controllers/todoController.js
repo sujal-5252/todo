@@ -8,23 +8,11 @@ class TodoController {
       const { query, tag, sortBy } = req.query;
       const todos = await this.todoService.fetchAllTodo(query, tag, sortBy);
 
-      res.json(todos);
+      res.json({ success: true, result: todos });
     } catch (err) {
       next(err);
     }
   };
-  // async getTodoById(req, res, next) {
-  //   try {
-  //     const todo = this.todoService.fetchTodoById(req.params.id);
-  //     if (!todo) {
-  //       res.status(404);
-  //       throw new Error(`Todo with id ${req.params.id} not found`);
-  //     }
-  //     res.json(todo);
-  //   } catch (err) {
-  //     next(err);
-  //   }
-  // }
 
   createTodo = async (req, res, next) => {
     try {
@@ -33,7 +21,7 @@ class TodoController {
 
       const result = await this.todoService.createTodo(newTodo);
 
-      res.send(result);
+      res.send({ success: true, result: result });
     } catch (err) {
       next(err);
     }
@@ -44,7 +32,7 @@ class TodoController {
       const newTodo = req.body;
 
       await this.todoService.updateTodo(req.params.id, newTodo);
-      res.end();
+      res.json({ success: true });
     } catch (err) {
       next(err);
     }
@@ -55,7 +43,7 @@ class TodoController {
       const id = req.params.id;
 
       await this.todoService.deleteTodo(id);
-      res.end();
+      res.json({ success: true });
     } catch (err) {
       next(err);
     }
