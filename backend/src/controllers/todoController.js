@@ -5,8 +5,14 @@ class TodoController {
   }
   getAllTodo = async (req, res, next) => {
     try {
+      const userId = req.user._id;
       const { query, tag, sortBy } = req.query;
-      const todos = await this.todoService.fetchAllTodo(query, tag, sortBy);
+      const todos = await this.todoService.fetchAllTodo(
+        userId,
+        query,
+        tag,
+        sortBy
+      );
 
       res.json({ success: true, result: todos });
     } catch (err) {
@@ -16,7 +22,8 @@ class TodoController {
 
   createTodo = async (req, res, next) => {
     try {
-      const newTodo = req.body;
+      const userId = req.user._id;
+      const newTodo = { userId, ...req.body };
       console.log(req.body);
 
       const result = await this.todoService.createTodo(newTodo);

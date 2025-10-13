@@ -1,7 +1,7 @@
 import Todo from '../models/Todo.js';
 
 class TodoService {
-  async fetchAllTodo(query, tag, sortBy) {
+  async fetchAllTodo(userId, query, tag, sortBy) {
     let searchQuery;
     if (tag && sortBy) {
       searchQuery = {
@@ -13,19 +13,25 @@ class TodoService {
             ],
           },
           { tags: tag },
+          { userId },
         ],
       };
     } else if (tag) {
-      searchQuery = { tags: tag };
+      searchQuery = { tags: tag, userId };
     } else if (query) {
       searchQuery = {
-        $or: [
-          { title: { $regex: query, $options: 'i' } },
-          { description: { $regex: query, $options: 'i' } },
+        $and: [
+          {
+            $or: [
+              { title: { $regex: query, $options: 'i' } },
+              { description: { $regex: query, $options: 'i' } },
+            ],
+          },
+          { userId },
         ],
       };
     } else {
-      searchQuery = {};
+      searchQuery = { userId };
     }
 
     const sortQuery = sortBy
@@ -39,6 +45,7 @@ class TodoService {
   }
 
   async createTodo({
+    userId,
     title,
     description = null,
     isCompleted = false,
@@ -66,6 +73,7 @@ class TodoService {
     }
 
     const todo = new Todo({
+      userId,
       title,
       description,
       isCompleted,
@@ -77,7 +85,10 @@ class TodoService {
     return todo;
   }
 
-  async updateTodo(id, { title, description, isCompleted, isImportant, tags }) {
+  async updateTodo(
+    todoId,
+    { title, description, isCompleted, isImportant, tags }
+  ) {
     const newTodo = {};
 
     if (title) {
@@ -100,7 +111,7 @@ class TodoService {
       newTodo.tags = tags;
     }
 
-    await Todo.findByIdAndUpdate(id, newTodo);
+    await Todo.findByIdAndUpdate(todoId, newTodo);
   }
 
   async deleteTodo(id) {

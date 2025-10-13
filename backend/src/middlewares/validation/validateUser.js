@@ -1,4 +1,4 @@
-import User from '../../models/User.js';
+import User from '../../validators/User.js';
 
 export default function validateUser(req, res, next) {
   if (!req.body) {

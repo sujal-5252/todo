@@ -1,6 +1,28 @@
+import jwt from 'jsonwebtoken';
+import UserService from '../../services/userService.js';
+
 async function isAuthenticated(req, res, next) {
-  res.status(401);
-  next(new Error('Not authenticated'));
+  const token = req.headers.authorization.split(' ')[1];
+  if (!token) {
+    res.status(400);
+    return next(new Error('Invalid Authorization Header'));
+  }
+  try {
+    const payload = await jwt.verify(token, process.env.SECRET);
+    const user = await new UserService().getUserById(payload.userId);
+    console.log(user);
+
+    if (!user) {
+      return next(new Error('User with given ID not found'));
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(401);
+    next(err);
+  }
 }
 
 export default isAuthenticated;

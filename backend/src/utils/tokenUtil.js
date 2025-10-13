@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-function generateTokenFromUserId(userId, type) {
+function generateTokenFromUserId(userId, type = 'access') {
   let options;
   if (!type || type === 'access') {
     options = { expiresIn: '20m' };

@@ -1,8 +1,9 @@
 import * as z from 'zod';
 
 export default function errorHandler(err, _req, res, _next) {
-  console.log('Working');
-  if (res.status <= 200) {
+  console.log(err);
+
+  if (res.statusCode < 400) {
     res.status(500);
   }
 

@@ -8,10 +8,13 @@
     <title>vite-project</title>
   </head>
   <body>
-    <div class="app" style="display: none">
+    <div class="app hidden">
       <nav>
         <div class="logo"><h1>TODOS</h1></div>
-        <button class="create">Create Todo</button>
+        <div>
+          <button class="create">Create Todo</button>
+          <button class="logout">Log Out</button>
+        </div>
       </nav>
       <div class="form-container hidden">
         <form class="todo-form">
@@ -85,17 +88,21 @@
       <div class="line"></div>
       <div class="line"></div>
       <div class="line"></div>
-      <h1>Sign Up</h1>
+      <h1>
+        <span class="selected" id="signup">Sign Up</span> /
+        <span id="login">Login</span>
+      </h1>
       <form>
         <div>
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" />
+          <input type="email" name="email" id="email" required />
         </div>
         <div>
           <label for="password">Password</label>
-          <input type="password" name="password" id="password" />
+          <input type="password" name="password" id="password" required />
+          <div class="message success"></div>
         </div>
-        <button type="submit">Create Account</button>
+        <button type="submit" class="login">Create Account</button>
       </form>
     </div>
   </body>
