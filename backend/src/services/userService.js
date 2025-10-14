@@ -1,4 +1,4 @@
-import OTP from '../models/OTP.js';
+import Otp from '../models/Otp.js';
 import User from '../models/User.js';
 
 class UserService {
@@ -37,22 +37,30 @@ class UserService {
   }
 
   async verifyUser(email, otp) {
+    await this.verifyOtp(email, otp);
+
     const user = await this.getUserByEmail(email);
-    const actualOtp = await OTP.findOne({ userId: user._id });
-
-    console.log(Number(otp), actualOtp.value);
-
-    console.log(actualOtp.expiry, Date.now());
-    if (Number(otp) !== actualOtp.value || actualOtp.expiry < Date.now()) {
-      throw new Error('Invalid OTP');
-    }
 
     user.verified = true;
     await user.save();
   }
 
+  async verifyOtp(email, otp) {
+    const user = await this.getUserByEmail(email);
+    const actualOtp = await Otp.findOne({ userId: user._id });
+
+    if (Number(otp) !== actualOtp.value || actualOtp.expiry < Date.now()) {
+      throw new Error('Invalid Otp');
+    }
+  }
+
+  async resetPassword(email, otp, password) {
+    await this.verifyOtp(email, otp);
+    await this.updatePassword(email, password);
+  }
+
   async generateOtp(userId) {
-    const otp = await OTP.findOneAndUpdate(
+    const otp = await Otp.findOneAndUpdate(
       { userId },
       {
         userId: userId,

@@ -9,7 +9,9 @@ const authRouter = express.Router();
 
 authRouter.post('/signup', validateUser, authController.signup);
 authRouter.post('/login', validateUser, authController.login);
-authRouter.post('/verify/', authController.verify);
-authRouter.post('/resend-otp', authController.resendOtp);
+authRouter.post('/verify', authController.verify);
+authRouter.post('/send-otp', authController.sendOtp);
+authRouter.post('/refresh-token', authController.refreshToken);
+authRouter.post('/reset-password', authController.resetPassword);
 
 export default authRouter;

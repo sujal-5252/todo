@@ -2,13 +2,14 @@ import jwt from 'jsonwebtoken';
 import UserService from '../../services/userService.js';
 
 async function isAuthenticated(req, res, next) {
-  const token = req.headers.authorization.split(' ')[1];
-  if (!token) {
-    res.status(400);
-    return next(new Error('Invalid Authorization Header'));
-  }
   try {
-    const payload = await jwt.verify(token, process.env.SECRET);
+    const token = req.headers.authorization.split(' ')[1];
+    if (!token) {
+      res.status(400);
+      return next(new Error('Invalid Authorization Header'));
+    }
+
+    const payload = jwt.verify(token, process.env.SECRET);
     const user = await new UserService().getUserById(payload.userId);
     console.log(user);
 

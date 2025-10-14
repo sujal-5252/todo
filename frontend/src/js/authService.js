@@ -17,8 +17,8 @@ class AuthService {
     try {
       const response = await this.api.post('/login', { email, password });
 
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      localStorage.setItem('access-token', response.data.accessToken);
+      localStorage.setItem('refresh-token', response.data.refreshToken);
     } catch (err) {
       throw new Error(err.response.data.message);
     }
@@ -28,8 +28,12 @@ class AuthService {
     await this.api.post(`/verify`, { email, otp });
   }
 
-  async resendOtp(email) {
-    await this.api.post('/resend-otp', { email });
+  async sendOtp(email) {
+    await this.api.post('/send-otp', { email });
+  }
+
+  async resetPassword(email, otp, password) {
+    await this.api.post('/reset-password', { email, otp, password });
   }
 }
 

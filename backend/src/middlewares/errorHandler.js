@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { ValidationError } from 'yup';
 
 export default function errorHandler(err, _req, res, _next) {
   console.log(err);
@@ -7,13 +7,11 @@ export default function errorHandler(err, _req, res, _next) {
     res.status(500);
   }
 
-  if (err instanceof z.ZodError) {
-    console.log(err.issues);
+  if (err instanceof ValidationError) {
+    console.log(err);
     res.json({
       success: false,
-      message: err.issues
-        .map((issue) => issue.path[0] + ': ' + issue.message)
-        .join(', '),
+      message: err.errors.join(', '),
     });
   } else {
     res.json({ success: false, message: err.message });

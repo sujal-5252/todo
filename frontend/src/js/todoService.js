@@ -8,7 +8,7 @@ class TodoService {
   constructor() {
     this.api.interceptors.request.use(
       function (config) {
-        const token = localStorage.getItem('accessToken');
+        const token = localStorage.getItem('access-token');
 
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`;
@@ -22,10 +22,10 @@ class TodoService {
     );
 
     this.api.interceptors.response.use(
-      function (response) {
+      (response) => {
         return response;
       },
-      async function (error) {
+      async (error) => {
         const originalRequest = error.config;
 
         if (
@@ -38,10 +38,13 @@ class TodoService {
           try {
             const response = await axios.post(
               'http://localhost:3001/auth/refresh-token',
-              { refreshToken: localStorage.getItem('refreshToken') }
+              { refreshToken: localStorage.getItem('refresh-token') }
             );
+            console.log(response);
+
             if (response) {
-              localStorage.setItem('accessToken', response.data.accessToken);
+              localStorage.setItem('access-token', response.data.accessToken);
+              localStorage.setItem('refresh-token', response.data.refreshToken);
 
               originalRequest.headers[
                 'Authorization'
@@ -51,8 +54,8 @@ class TodoService {
             }
           } catch (error) {
             console.log(error);
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('access-token');
+            localStorage.removeItem('refresh-token');
 
             window.location.reload();
           }

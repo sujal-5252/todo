@@ -1,16 +1,16 @@
 import { Todo, TodoUpdate } from '../../validators/Todo.js';
 
 export default function validateTodo(type) {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     try {
       if (!req.body) {
         throw new Error('Request body missing');
       }
 
       if (type === 'create') {
-        req.body = Todo.parse(req.body);
+        req.body = await Todo.validate(req.body);
       } else if (type === 'update') {
-        req.body = TodoUpdate.parse(req.body);
+        req.body = await TodoUpdate.validate(req.body);
       }
 
       next();

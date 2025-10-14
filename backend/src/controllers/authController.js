@@ -1,6 +1,7 @@
 import { generateTokenFromUserId } from '../utils/tokenUtil.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 class AuthController {
   constructor(userService) {
@@ -23,6 +24,7 @@ class AuthController {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       let user;
+
       try {
         user = await this.userService.getUserByEmail(email);
         if (user.verified) {
@@ -62,11 +64,7 @@ class AuthController {
 
       if (!userVerified) {
         res.status(400);
-        return next(
-          new Error(
-            'User not verified. Verify using the link sent to your email or sign up again if expired'
-          )
-        );
+        return next(new Error('Account not found'));
       }
 
       if (!isPasswordVerified) {
@@ -91,7 +89,7 @@ class AuthController {
 
       if (!otp || !email) {
         res.status(400);
-        return next(new Error('Email or OTP is missing'));
+        return next(new Error('Email or Otp is missing'));
       }
 
       await this.userService.verifyUser(email, otp);
@@ -103,34 +101,80 @@ class AuthController {
     }
   };
 
-  resendOtp = async (req, res, next) => {
+  refreshToken = async (req, res, next) => {
+    try {
+      const { refreshToken } = req.body;
+
+      if (!refreshToken) {
+        res.status(401);
+        return next(new Error('Invalid refresh token provided'));
+      }
+
+      const payload = jwt.verify(refreshToken, process.env.SECRET);
+      const newAccessToken = generateTokenFromUserId(payload.userId, 'access');
+      const newRefreshToken = generateTokenFromUserId(
+        payload.userId,
+        'refresh'
+      );
+
+      res.send({
+        success: true,
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      });
+    } catch (err) {
+      res.status(401);
+      next(err);
+    }
+  };
+
+  resetPassword = async (req, res, next) => {
+    try {
+      const { email, otp, password } = req.body;
+
+      if (!email || !otp || !password) {
+        res.status(400);
+        return next(new Error('One or more parameters are missing'));
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      await this.userService.resetPassword(email, otp, hashedPassword);
+
+      res.json({ success: true });
+    } catch (err) {
+      res.status(404);
+      next(err);
+    }
+  };
+
+  sendOtp = async (req, res, next) => {
     try {
       const { email } = req.body;
       const user = await this.userService.getUserByEmail(email);
       const newOtp = await this.userService.generateOtp(user._id);
 
       this.sendVerificationLink(email, newOtp);
+
       res.send({ success: true });
     } catch (err) {
       next(err);
     }
   };
 
-  sendVerificationLink(email, otp) {
-    const mailOptions = {
-      from: process.env.EMAIL,
-      to: email,
-      subject: 'Verification Link',
-      text: `Enter this otp to verify: ${otp} OTP will expire in 5 mins`,
-    };
+  async sendVerificationLink(email, otp) {
+    try {
+      const mailOptions = {
+        from: process.env.EMAIL,
+        to: email,
+        subject: 'Verification Link',
+        text: `Enter this otp to verify: ${otp} Otp will expire in 5 mins`,
+      };
 
-    this.transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email: ', error);
-      } else {
-        console.log('Email sent: ', info.response);
-      }
-    });
+      await this.transporter.sendMail(mailOptions);
+    } catch (error) {
+      return error;
+    }
   }
 }
 

@@ -222,8 +222,8 @@ class DOMController {
     const logoutButton = document.querySelector('.logout');
 
     logoutButton.addEventListener('click', () => {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('access-token');
+      localStorage.removeItem('refresh-token');
       window.location.reload();
     });
 
@@ -273,10 +273,15 @@ class DOMController {
   addEventListenersLoginPage() {
     const headingLogin = document.querySelector('.login h1 span#login');
     const headingSignup = document.querySelector('.login h1 span#signup');
+    const resetPassword = document.querySelector('.reset-password');
+    const message = document.querySelector('.login .message');
 
     headingLogin.addEventListener('click', () => {
       headingSignup.classList.remove('selected');
       headingLogin.classList.add('selected');
+
+      resetPassword.style.display = 'block';
+      message.textContent = '';
 
       document.querySelector('.login form button').textContent = 'Login';
     });
@@ -284,6 +289,9 @@ class DOMController {
     headingSignup.addEventListener('click', () => {
       headingLogin.classList.remove('selected');
       headingSignup.classList.add('selected');
+
+      resetPassword.style.display = 'none';
+      message.textContent = '';
 
       document.querySelector('.login form button').textContent =
         'Create Account';
@@ -301,7 +309,7 @@ class DOMController {
       const password = document.querySelector('.login input#password').value;
 
       try {
-        messageEl.className = 'message';
+        messageEl.className = 'message success';
 
         if (formButton.textContent === 'Create Account') {
           await this.authService.signup(email, password);
@@ -312,17 +320,135 @@ class DOMController {
         }
       } catch (err) {
         console.log(err);
-        messageEl.className = 'message';
-        messageEl.classList.add('error');
+        messageEl.className = 'message error';
         messageEl.textContent = err.message;
       }
     });
+
+    resetPassword.addEventListener('click', () => {
+      this.renderResetPasswordPage();
+    });
+  }
+
+  renderResetPasswordPage() {
+    const heading = document.querySelector('.login h1');
+    const form = document.querySelector('.login form');
+
+    const emailContainer = document.createElement('div');
+    const emailLabel = document.createElement('label');
+    const emailInput = document.createElement('input');
+    const generateOtpButton = document.createElement('button');
+
+    const otpContainer = document.createElement('div');
+    const otpLabel = document.createElement('label');
+    const otpInput = document.createElement('input');
+
+    const passwordContainer = document.createElement('div');
+    const passwordLabel = document.createElement('label');
+    const passwordInput = document.createElement('input');
+    const message = document.createElement('div');
+
+    const submitButton = document.createElement('button');
+
+    heading.textContent = 'Reset Password';
+    form.innerHTML = '';
+    form.id = 'reset-password';
+
+    emailContainer.classList.add('input-container');
+    otpContainer.classList.add('input-container');
+    passwordContainer.classList.add('input-container');
+    message.classList.add('message');
+
+    generateOtpButton.textContent = 'Send OTP';
+    generateOtpButton.style.backgroundColor = 'yellow';
+    otpLabel.textContent = 'Enter OTP';
+    otpInput.type = 'text';
+    otpInput.maxLength = 6;
+    otpInput.minLength = 6;
+    otpInput.placeholder = 'Enter OTP sent to you email';
+    otpInput.disabled = true;
+
+    emailLabel.textContent = 'Email';
+    emailInput.type = 'email';
+
+    passwordLabel.textContent = 'New Password:';
+    passwordInput.type = 'Password';
+    passwordInput.disabled = 'true';
+
+    submitButton.textContent = 'Reset Password';
+    submitButton.style.backgroundColor = 'gray';
+    submitButton.id = 'disabled';
+
+    generateOtpButton.addEventListener('click', async () => {
+      if (emailInput.value === '') {
+        message.textContent = 'Enter Email';
+        message.className = 'message error';
+        return;
+      }
+
+      try {
+        await this.authService.sendOtp(emailInput.value);
+
+        message.textContent = 'OTP sent';
+        message.className = 'message success';
+      } catch (err) {
+        message.textContent = err.response.data.message;
+        message.className = 'message error';
+        return;
+      }
+
+      submitButton.style.backgroundColor = '';
+      this.showToast('Otp sent');
+      passwordInput.disabled = false;
+      otpInput.disabled = false;
+      generateOtpButton.textContent = 'Resend OTP';
+      submitButton.id = '';
+    });
+
+    submitButton.addEventListener('click', async () => {
+      if (!emailInput.value || !otpInput.value || !passwordInput.value) {
+        message.textContent = 'One or more fields are missing';
+        message.className = 'message error';
+        return;
+      }
+
+      try {
+        console.log(emailInput.value, otpInput.value, passwordInput.value);
+        await this.authService.resetPassword(
+          emailInput.value,
+          otpInput.value,
+          passwordInput.value
+        );
+
+        this.showToast('Reset password successfully');
+
+        setInterval(() => window.location.reload(), 3000);
+      } catch (err) {
+        message.textContent = err.response.data.message;
+        message.className = 'message error';
+        return;
+      }
+    });
+
+    emailContainer.appendChild(emailLabel);
+    emailContainer.appendChild(emailInput);
+    otpContainer.appendChild(otpLabel);
+    otpContainer.appendChild(otpInput);
+    passwordContainer.appendChild(passwordLabel);
+    passwordContainer.appendChild(passwordInput);
+    passwordContainer.appendChild(message);
+
+    form.appendChild(emailContainer);
+    form.appendChild(generateOtpButton);
+    form.appendChild(otpContainer);
+    form.appendChild(passwordContainer);
+    form.appendChild(submitButton);
   }
 
   renderOtpPage(email) {
     const heading = document.querySelector('.login h1');
     const form = document.querySelector('.login form');
-    console.log(form);
+
     const container = document.createElement('div');
     const label = document.createElement('label');
     const input = document.createElement('input');
@@ -350,7 +476,9 @@ class DOMController {
       const otp = input.value;
       try {
         await this.authService.verify(email, otp);
-        message.textContent = 'OTP Verified. Please Login';
+        this.showToast(
+          'Account created successfully. Redirecting to login page'
+        );
         setInterval(() => window.location.reload(), 3000);
       } catch (err) {
         message.textContent = err.response.data.message;
@@ -372,13 +500,14 @@ class DOMController {
   }
 
   async renderHomePage() {
-    const pages = document.querySelectorAll('body > div');
+    const divs = document.querySelectorAll('body > div');
 
-    pages.forEach((page) => page.classList.add('hidden'));
+    divs.forEach((div) =>
+      div.id !== 'toast-container' ? div.classList.add('hidden') : ''
+    );
 
-    if (localStorage.getItem('accessToken')) {
+    if (localStorage.getItem('access-token')) {
       document.querySelector('.app').classList.remove('hidden');
-
       await this.updateTodoList();
       await this.updateTagList();
       this.addEventListenersHomePage();

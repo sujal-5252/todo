@@ -11,8 +11,10 @@
     <div class="app hidden">
       <nav>
         <div class="logo"><h1>TODOS</h1></div>
-        <div>
+        <div class="container">
           <button class="create">Create Todo</button>
+          <!-- <div class="profile"></div>
+          <div class="drop-down"><button class="logout">Log Out</button></div> -->
           <button class="logout">Log Out</button>
         </div>
       </nav>
@@ -80,9 +82,8 @@
         </div>
         <div class="todo-container"></div>
       </div>
-      <div id="toast-container"></div>
     </div>
-
+    <div id="toast-container"></div>
     <div class="login">
       <div class="line"></div>
       <div class="line"></div>
@@ -100,6 +101,7 @@
         <div>
           <label for="password">Password</label>
           <input type="password" name="password" id="password" required />
+          <a class="reset-password">Reset Password</a>
           <div class="message success"></div>
         </div>
         <button type="submit" class="login">Create Account</button>

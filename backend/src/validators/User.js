@@ -1,8 +1,8 @@
-import * as z from 'zod';
+import { object, string } from 'yup';
 
-const User = z.object({
-  email: z.email(),
-  password: z.string().nonempty(),
+const User = object({
+  email: string().email().required(),
+  password: string().min(1).required(),
 });
 
 export default User;
