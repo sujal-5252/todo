@@ -25,6 +25,7 @@ class TodoController {
     try {
       const userId = req.user._id;
       const attachment = req.file.filename;
+      console.log(JSON.parse(req.body.tags));
       const newTodo = {
         ...req.body,
         userId,

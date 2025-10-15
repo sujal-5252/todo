@@ -69,6 +69,7 @@ class DOMController {
       const deleteButton = document.createElement('button');
       const fileInput = document.createElement('input');
       const fileContainer = document.createElement('div');
+      const fileLogo = document.createElement('img');
       const fileList = document.createElement('div');
 
       todoEl.classList.toggle('todo');
@@ -93,6 +94,8 @@ class DOMController {
       }
 
       isImportantEl.innerHTML = `<svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`;
+
+      fileLogo.src = 'src/assets/attachment-icon.svg';
 
       if (todo.isImportant) {
         isImportantEl.querySelector('svg').classList.toggle('important');
@@ -180,6 +183,7 @@ class DOMController {
       todoEl.appendChild(descriptionEl);
 
       if (todo.attachment) {
+        fileContainer.appendChild(fileLogo);
         fileContainer.appendChild(fileList);
         todoEl.appendChild(fileContainer);
       }
@@ -536,6 +540,7 @@ class DOMController {
 
     if (localStorage.getItem('access-token')) {
       document.querySelector('.app').classList.remove('hidden');
+
       await this.updateTodoList();
       await this.updateTagList();
       this.addEventListenersHomePage();

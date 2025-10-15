@@ -103,12 +103,15 @@ nav .dropdown-menu {
 nav .menu-content {
   display: none;
   position: absolute;
-  background-color: #0a0059;
-  min-width: 200px;
+  background-color: #1b1451;
+  min-width: 150px;
+  padding-top: 20px;
   z-index: 1;
   flex-direction: column;
   padding: 20px;
   right: 0;
+  gap: 20px;
+  align-items: center;
 }
 
 .dropdown-menu:hover .menu-content {
@@ -254,6 +257,10 @@ nav .profile:hover + .drop-down {
   color: rgb(98, 98, 98);
 }
 
+.todo a:hover {
+  text-decoration: underline;
+}
+
 .todo .title {
   padding: 6px;
   background-color: rgb(255, 117, 117);
@@ -314,7 +321,11 @@ nav .profile:hover + .drop-down {
   padding: 0px 5px;
   background-color: #ec9168;
   border: 1px solid gray;
-  padding: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  padding-left: 5px;
 }
 
 .todo .file-input {
