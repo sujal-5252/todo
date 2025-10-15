@@ -3,6 +3,7 @@ class TodoController {
     console.log(todoService);
     this.todoService = todoService;
   }
+
   getAllTodo = async (req, res, next) => {
     try {
       const userId = req.user._id;
@@ -23,8 +24,13 @@ class TodoController {
   createTodo = async (req, res, next) => {
     try {
       const userId = req.user._id;
-      const newTodo = { userId, ...req.body };
-      console.log(req.body);
+      const attachment = req.file.filename;
+      const newTodo = {
+        ...req.body,
+        userId,
+        attachment,
+        tags: JSON.parse(req.body.tags),
+      };
 
       const result = await this.todoService.createTodo(newTodo);
 
@@ -38,7 +44,7 @@ class TodoController {
     try {
       const newTodo = req.body;
 
-      await this.todoService.updateTodo(req.params.id, newTodo);
+      await this.todoService.updateTodo(req.user._id, req.params.id, newTodo);
       res.json({ success: true });
     } catch (err) {
       next(err);

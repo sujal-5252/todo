@@ -77,7 +77,19 @@ class TodoService {
   }
 
   async createTodo(todo) {
-    const response = await this.api.post('/todo', todo);
+    const formData = new FormData();
+
+    formData.append('title', todo.title);
+    formData.append('description', todo.description);
+    formData.append('tags', JSON.stringify(todo.tags));
+    formData.append('isImportant', todo.isImportant);
+    formData.append('attachment', todo.attachment);
+
+    console.log(formData);
+
+    const response = await this.api.post('/todo', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     console.log(response.data);
 
     return response.data;

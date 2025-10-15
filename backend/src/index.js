@@ -18,6 +18,7 @@ try {
   console.log(err);
 }
 
+app.use('/uploads', Express.static('uploads'));
 app.use(cors());
 app.use(Express.json());
 app.use(logger);

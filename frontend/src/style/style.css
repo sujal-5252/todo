@@ -19,6 +19,10 @@ body {
   align-items: center;
 }
 
+button {
+  border: 2px solid black;
+}
+
 a {
   color: rgb(117, 117, 255);
   text-decoration: underline;
@@ -92,15 +96,23 @@ nav .container {
   justify-content: center;
 }
 
-nav .drop-down {
+nav .dropdown-menu {
+  position: relative;
+}
+
+nav .menu-content {
   display: none;
   position: absolute;
-  right: 0px;
-  bottom: -70px;
-  background-color: rgb(136, 136, 240);
-  justify-content: center;
+  background-color: #0a0059;
+  min-width: 200px;
+  z-index: 1;
+  flex-direction: column;
   padding: 20px;
-  border-radius: 12px;
+  right: 0;
+}
+
+.dropdown-menu:hover .menu-content {
+  display: flex;
 }
 
 nav .create,
@@ -116,7 +128,6 @@ nav .logout {
 
 nav .logout {
   background-color: rgb(255, 117, 117);
-  align-self: flex-end;
 }
 
 nav .create:hover,
@@ -237,6 +248,12 @@ nav .profile:hover + .drop-down {
   border: 1px solid gray;
 }
 
+.todo a {
+  font-size: 15px;
+  text-decoration: none;
+  color: rgb(98, 98, 98);
+}
+
 .todo .title {
   padding: 6px;
   background-color: rgb(255, 117, 117);
@@ -288,6 +305,32 @@ nav .profile:hover + .drop-down {
 
 .todo .description:focus {
   background-color: rgb(134, 248, 134);
+}
+
+.todo .file-container {
+  grid-column: 1/4;
+  display: flex;
+  width: 100%;
+  padding: 0px 5px;
+  background-color: #ec9168;
+  border: 1px solid gray;
+  padding: 8px;
+}
+
+.todo .file-input {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 10px;
+}
+
+.todo .file-input::file-selector-button {
+  background-color: rgb(170, 25, 18);
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  margin-right: 1cap;
+  color: white;
 }
 
 .todo button {
@@ -385,6 +428,10 @@ nav .profile:hover + .drop-down {
 .todo-form input[type='text'],
 .todo-form textarea {
   padding: 8px;
+  width: 30vw;
+}
+
+.todo-form input[type='file'] {
   width: 30vw;
 }
 

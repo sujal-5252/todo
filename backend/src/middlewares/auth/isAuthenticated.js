@@ -3,7 +3,13 @@ import UserService from '../../services/userService.js';
 
 async function isAuthenticated(req, res, next) {
   try {
+    if (!req.headers.authorization) {
+      res.status(400);
+      return next(new Error('Invalid Authorization Header'));
+    }
+
     const token = req.headers.authorization.split(' ')[1];
+
     if (!token) {
       res.status(400);
       return next(new Error('Invalid Authorization Header'));

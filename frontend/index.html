@@ -13,9 +13,13 @@
         <div class="logo"><h1>TODOS</h1></div>
         <div class="container">
           <button class="create">Create Todo</button>
-          <!-- <div class="profile"></div>
-          <div class="drop-down"><button class="logout">Log Out</button></div> -->
-          <button class="logout">Log Out</button>
+          <div class="dropdown-menu">
+            <div class="menu-btn profile"></div>
+            <div class="menu-content">
+              <div class="name">Profile Name</div>
+              <button class="logout">Log Out</button>
+            </div>
+          </div>
         </div>
       </nav>
       <div class="form-container hidden">
@@ -39,7 +43,16 @@
             ></textarea>
           </div>
           <div class="input-container">
-            <label for="title">Tags:</label
+            <label for="file">File:</label
+            ><input
+              type="file"
+              name="file"
+              id="file"
+              placeholder="Enter tags(comma separated)..."
+            />
+          </div>
+          <div class="input-container">
+            <label for="tags">Tags:</label
             ><input
               type="text"
               name="tags"

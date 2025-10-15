@@ -51,27 +51,9 @@ class TodoService {
     isCompleted = false,
     isImportant = false,
     tags = [],
+    attachment,
   }) {
-    if (!title) {
-      throw new Error('Title must be provided');
-    }
-
-    if (!description) {
-      description = null;
-    }
-
-    if (isCompleted === undefined) {
-      isCompleted = false;
-    }
-
-    if (isImportant === undefined) {
-      isImportant = false;
-    }
-
-    if (tags === undefined) {
-      tags = [];
-    }
-
+    console.log(attachment);
     const todo = new Todo({
       userId,
       title,
@@ -79,6 +61,7 @@ class TodoService {
       isCompleted,
       isImportant,
       tags,
+      attachment,
     });
 
     await todo.save();
@@ -86,6 +69,7 @@ class TodoService {
   }
 
   async updateTodo(
+    userId,
     todoId,
     { title, description, isCompleted, isImportant, tags }
   ) {
@@ -111,7 +95,7 @@ class TodoService {
       newTodo.tags = tags;
     }
 
-    await Todo.findByIdAndUpdate(todoId, newTodo);
+    await Todo.findOneAndUpdate({ _id: todoId, userId }, newTodo);
   }
 
   async deleteTodo(id) {

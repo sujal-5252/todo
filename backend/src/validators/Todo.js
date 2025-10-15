@@ -1,11 +1,12 @@
-import { object, string, boolean, array } from 'yup';
+import { object, string, boolean, mixed } from 'yup';
 
 const Todo = object({
   title: string().min(1).required(),
   description: string().nullable(),
   isCompleted: boolean(),
   isImportant: boolean(),
-  tags: array().of(string()),
+  tags: string(),
+  attachment: mixed().nullable(),
 });
 
 const TodoUpdate = Todo.concat(

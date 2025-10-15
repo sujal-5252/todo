@@ -67,6 +67,9 @@ class DOMController {
       const updateButton = document.createElement('button');
       const markCompleteButton = document.createElement('button');
       const deleteButton = document.createElement('button');
+      const fileInput = document.createElement('input');
+      const fileContainer = document.createElement('div');
+      const fileList = document.createElement('div');
 
       todoEl.classList.toggle('todo');
       titleEl.classList.toggle('title');
@@ -75,10 +78,13 @@ class DOMController {
       updateButton.classList.toggle('update');
       markCompleteButton.classList.toggle('mark-complete');
       deleteButton.classList.toggle('delete');
+      fileInput.classList.toggle('file-input');
+      fileContainer.classList.toggle('file-container');
 
       todoEl.id = todo._id;
       titleEl.value = todo.title;
       titleEl.required = true;
+      fileInput.type = 'file';
 
       if (todo.description) {
         descriptionEl.value = todo.description;
@@ -94,6 +100,14 @@ class DOMController {
 
       if (todo.isCompleted) {
         todoEl.classList.toggle('completed');
+      }
+
+      if (todo.attachment) {
+        const fileLink = document.createElement('a');
+        fileLink.href = 'http://localhost:3001/uploads/' + todo.attachment;
+        fileLink.textContent = todo.attachment;
+        console.log(fileLink.textContent);
+        fileList.appendChild(fileLink);
       }
 
       updateButton.textContent = 'Update';
@@ -148,6 +162,7 @@ class DOMController {
           isCompleted: !isComplete,
         });
         todoEl.classList.toggle('completed');
+        fileContainer.classList.toggle('file-container');
 
         setTimeout(async () => await this.updateTodoList(), 400);
       });
@@ -163,6 +178,12 @@ class DOMController {
       todoEl.appendChild(titleEl);
       todoEl.appendChild(isImportantEl);
       todoEl.appendChild(descriptionEl);
+
+      if (todo.attachment) {
+        fileContainer.appendChild(fileList);
+        todoEl.appendChild(fileContainer);
+      }
+
       todoEl.appendChild(updateButton);
       todoEl.appendChild(markCompleteButton);
       todoEl.appendChild(deleteButton);
@@ -234,21 +255,28 @@ class DOMController {
       const descriptionInput = e.target.querySelector('textarea#description');
       const isImportantCheckbox = e.target.querySelector('input#is-important');
       const tagsInput = e.target.querySelector('input#tags');
+      const file = e.target.querySelector('input#file');
+      console.log(file);
+
       const title = titleInput.value;
       const description =
         descriptionInput.value !== '' ? descriptionInput.value : null;
       const isImportant = isImportantCheckbox.checked;
       const tags = tagsInput.value.split(',');
+      const attachment = file.files[0];
 
+      console.log(attachment);
       console.log(tags);
-      console.log({ title, description, isImportant, tags });
+      console.log({ title, description, isImportant, tags, attachment });
 
       await this.todoService.createTodo({
         title,
         description,
         isImportant,
         tags,
+        attachment,
       });
+
       this.showToast('Todo created');
       await this.updateTodoList();
       await this.updateTagList();
