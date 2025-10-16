@@ -1,15 +1,10 @@
-import AuthService from './authService.js';
-import TodoService from './todoService.js';
+import AuthService from './services/authService.js';
+import TodoService from './services/todoService.js';
 
 class DOMController {
   constructor() {
     this.authService = new AuthService();
     this.todoService = new TodoService();
-
-    this.todoContainer = document.querySelector('.todo-container');
-    this.tagList = document.querySelector('.tag-list');
-    this.todoForm = document.querySelector('.todo-form');
-    this.todoFormContainer = document.querySelector('.form-container');
   }
 
   showToast(message = 'This is a toast notification!') {
@@ -34,14 +29,15 @@ class DOMController {
   }
 
   async updateTodoList({ query = '', tag = '', sortBy = '' } = {}) {
+    const todoContainer = document.querySelector('.todo-container');
     const selectedTagEl = document.querySelector('.tag-list li.selected');
+
     let selectedTag =
       selectedTagEl && selectedTagEl.textContent !== 'All'
         ? selectedTagEl.textContent
         : '';
 
     const sortValue = document.querySelector('#sort-input').value;
-
     const searchQuery = document.querySelector('.search input').value;
 
     if (!query) {
@@ -57,7 +53,7 @@ class DOMController {
     const todos = await this.todoService.getAllTodo(query, tag, sortBy);
     console.log(todos);
 
-    this.todoContainer.innerHTML = '';
+    todoContainer.innerHTML = '';
 
     todos.forEach((todo) => {
       const todoEl = document.createElement('div');
@@ -167,7 +163,7 @@ class DOMController {
         todoEl.classList.toggle('completed');
         fileContainer.classList.toggle('file-container');
 
-        setTimeout(async () => await this.updateTodoList(), 400);
+        await this.updateTodoList();
       });
 
       deleteButton.addEventListener('click', async (e) => {
@@ -192,11 +188,13 @@ class DOMController {
       todoEl.appendChild(markCompleteButton);
       todoEl.appendChild(deleteButton);
 
-      this.todoContainer.appendChild(todoEl);
+      todoContainer.appendChild(todoEl);
     });
   }
 
   async updateTagList() {
+    const tagList = document.querySelector('.tag-list');
+
     const tagHandler = async (e) => {
       document
         .querySelectorAll('.tag-list li')
@@ -217,14 +215,15 @@ class DOMController {
       });
     };
 
-    this.tagList.innerHTML = '';
+    tagList.innerHTML = '';
 
     const list = document.createElement('li');
 
     list.textContent = 'All';
     list.classList.toggle('selected');
     list.addEventListener('click', tagHandler);
-    this.tagList.appendChild(list);
+
+    tagList.appendChild(list);
 
     const tags = await this.todoService.getAllTags();
 
@@ -233,15 +232,18 @@ class DOMController {
 
       list.textContent = tag;
       list.addEventListener('click', tagHandler);
-      this.tagList.appendChild(list);
+
+      tagList.appendChild(list);
     });
   }
 
   addEventListenersHomePage() {
+    const todoForm = document.querySelector('.todo-form');
+    const todoFormContainer = document.querySelector('.form-container');
     const createButton = document.querySelector('.create');
 
     createButton.addEventListener('click', () =>
-      this.todoFormContainer.classList.toggle('hidden')
+      todoFormContainer.classList.toggle('hidden')
     );
 
     const logoutButton = document.querySelector('.logout');
@@ -252,7 +254,7 @@ class DOMController {
       window.location.reload();
     });
 
-    this.todoForm.addEventListener('submit', async (e) => {
+    todoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const titleInput = e.target.querySelector('input#title');
@@ -282,6 +284,7 @@ class DOMController {
       });
 
       this.showToast('Todo created');
+
       await this.updateTodoList();
       await this.updateTagList();
 
@@ -454,7 +457,7 @@ class DOMController {
 
         this.showToast('Reset password successfully');
 
-        setInterval(() => window.location.reload(), 3000);
+        setInterval(() => window.location.reload(), 1000);
       } catch (err) {
         message.textContent = err.response.data.message;
         message.className = 'message error';

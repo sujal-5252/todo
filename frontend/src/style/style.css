@@ -403,6 +403,10 @@ nav .profile:hover + .drop-down {
   background-color: #534b4f;
 }
 
+.todo.completed .file-container {
+  background-color: #4a3636;
+}
+
 .form-container {
   padding-top: 2rem;
   padding-bottom: 2rem;

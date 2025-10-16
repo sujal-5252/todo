@@ -17,7 +17,6 @@ async function isAuthenticated(req, res, next) {
 
     const payload = jwt.verify(token, process.env.SECRET);
     const user = await new UserService().getUserById(payload.userId);
-    console.log(user);
 
     if (!user) {
       return next(new Error('User with given ID not found'));
