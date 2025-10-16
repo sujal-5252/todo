@@ -11,6 +11,7 @@ class DOMController {
     const toastContainer = document.getElementById('toast-container');
 
     const toast = document.createElement('div');
+
     toast.classList.add('toast');
     toast.textContent = message;
 
@@ -43,9 +44,11 @@ class DOMController {
     if (!query) {
       query = searchQuery;
     }
+
     if (!tag) {
       tag = selectedTag;
     }
+
     if (!sortBy) {
       sortBy = sortValue;
     }
@@ -120,12 +123,15 @@ class DOMController {
         const todoEl = e.target.parentElement;
         const title = todoEl.querySelector('.title').value;
 
-        if (!title) return;
+        if (!title) {
+          return;
+        }
 
         const description = todoEl.querySelector('.description').value;
 
         await this.todoService.updateTodo(id, { title, description });
         await this.updateTodoList();
+
         this.showToast('Data updated');
       });
 
@@ -251,6 +257,7 @@ class DOMController {
     logoutButton.addEventListener('click', () => {
       localStorage.removeItem('access-token');
       localStorage.removeItem('refresh-token');
+
       window.location.reload();
     });
 
@@ -262,7 +269,6 @@ class DOMController {
       const isImportantCheckbox = e.target.querySelector('input#is-important');
       const tagsInput = e.target.querySelector('input#tags');
       const file = e.target.querySelector('input#file');
-      console.log(file);
 
       const title = titleInput.value;
       const description =
@@ -270,10 +276,6 @@ class DOMController {
       const isImportant = isImportantCheckbox.checked;
       const tags = tagsInput.value.split(',');
       const attachment = file.files[0];
-
-      console.log(attachment);
-      console.log(tags);
-      console.log({ title, description, isImportant, tags, attachment });
 
       await this.todoService.createTodo({
         title,
@@ -433,7 +435,9 @@ class DOMController {
       }
 
       submitButton.style.backgroundColor = '';
+
       this.showToast('Otp sent');
+
       passwordInput.disabled = false;
       otpInput.disabled = false;
       generateOtpButton.textContent = 'Resend OTP';
@@ -448,7 +452,6 @@ class DOMController {
       }
 
       try {
-        console.log(emailInput.value, otpInput.value, passwordInput.value);
         await this.authService.resetPassword(
           emailInput.value,
           otpInput.value,
@@ -509,11 +512,14 @@ class DOMController {
 
     button.addEventListener('click', async () => {
       const otp = input.value;
+
       try {
         await this.authService.verify(email, otp);
+
         this.showToast(
           'Account created successfully. Redirecting to login page'
         );
+
         setInterval(() => window.location.reload(), 3000);
       } catch (err) {
         message.textContent = err.response.data.message;
@@ -522,6 +528,7 @@ class DOMController {
 
     resendLink.addEventListener('click', async () => {
       await this.authService.resendOtp(email);
+
       message.textContent = 'OTP Resent';
       message.classList.toggle('error');
     });

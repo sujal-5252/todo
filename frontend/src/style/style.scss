@@ -1,0 +1,790 @@
+// TODO: CHANGE VARIABLE NAMES
+$color_1: rgb(230, 230, 230);
+$color_2: rgb(117, 117, 255);
+$color_3: rgb(255, 111, 111);
+$color_4: rgb(136, 136, 240);
+$color_5: black;
+$color_6: rgb(98, 98, 98);
+$color_7: rgb(47, 47, 47);
+$color_8: white;
+$color_9: #000000;
+$color_10: rgb(121, 121, 251);
+$color_11: rgb(148, 148, 148);
+$color_12: rgb(168, 168, 168);
+$color_13: rgb(10, 174, 10);
+$color_14: rgb(255, 88, 54);
+$font-family_1: 'Outfit';
+$font-family_2: 'Paytone One';
+$background-color_1: rgb(22, 22, 22);
+$background-color_2: rgb(255, 139, 255);
+$background-color_3: rgba(33, 33, 33, 0.861);
+$background-color_4: #1b1451;
+$background-color_5: rgb(255, 227, 85);
+$background-color_6: rgb(255, 117, 117);
+$background-color_7: rgb(161, 51, 161);
+$background-color_8: rgb(0, 0, 0);
+$background-color_9: rgb(230, 230, 230);
+$background-color_10: #ee2929;
+$background-color_11: rgb(254, 140, 53);
+$background-color_12: rgb(169, 220, 140);
+$background-color_13: rgb(134, 248, 134);
+$background-color_14: #ec9168;
+$background-color_15: rgb(170, 25, 18);
+$background-color_16: black;
+$background-color_17: rgb(255, 230, 90);
+$background-color_18: rgb(17, 158, 246);
+$background-color_19: rgb(255, 144, 144);
+$background-color_20: #3b3131;
+$background-color_21: #26282a;
+$background-color_22: #676767;
+$background-color_23: #555d50;
+$background-color_24: #534b4f;
+$background-color_25: #4a3636;
+$background-color_26: rgba(255, 255, 255, 0.096);
+$background-color_27: rgb(8, 220, 8);
+$background-color_28: #ffffff;
+$background-color_29: rgba(58, 58, 58, 0.805);
+$background-color_30: rgba(138, 138, 138, 0.222);
+$background-color_31: rgba(173, 173, 173, 0.409);
+$background-color_32: rgba(142, 142, 142, 0.409);
+$background-color_33: rgba(96, 96, 96, 0.409);
+$background-color_34: rgb(140, 255, 140);
+$background-color_35: #464646dc;
+$background-color_36: red;
+
+@import 'https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap';
+/* * {
+  outline: 1px solid red;
+}; */
+* {
+  font-family: $font-family_1;
+}
+
+body {
+  color: $color_1;
+  background-color: $background-color_1;
+  background-size: 40px 40px;
+  background-image: linear-gradient(
+      to right,
+      rgb(49, 49, 49) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(98, 98, 98), transparent 1px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border: 2px solid black;
+}
+
+a {
+  color: $color_2;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: min-content min-content auto;
+}
+
+svg {
+  width: 30px;
+  height: 30px;
+}
+
+textarea {
+  resize: none;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(255, 0, 234, 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $background-color_2;
+    outline: 1px solid rgb(0, 128, 255);
+  }
+}
+
+h2 {
+  font-family: $font-family_2;
+  font-size: 22px;
+  font-weight: 500;
+  color: $color_3;
+  padding-bottom: 15px;
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+  height: 0px;
+}
+
+nav {
+  grid-column: 1 / 3;
+  padding: 20px;
+  background-color: $background-color_3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  h1 {
+    font-family: $font-family_2;
+    font-size: 28px;
+    font-weight: bold;
+    color: $color_4;
+  }
+  .container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  .dropdown-menu {
+    position: relative;
+  }
+  .menu-content {
+    display: none;
+    position: absolute;
+    background-color: $background-color_4;
+    min-width: 150px;
+    padding-top: 20px;
+    z-index: 1;
+    flex-direction: column;
+    padding: 20px;
+    right: 0;
+    gap: 20px;
+    align-items: center;
+  }
+  .create {
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: $background-color_5;
+    font-size: 14px;
+    box-shadow: 3px 4px 0px #f3f3f3;
+    transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      position: relative;
+      transform: translateY(5px);
+      box-shadow: 0px 0px 0px #f3f3f3;
+    }
+  }
+  .logout {
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: $background-color_5;
+    font-size: 14px;
+    box-shadow: 3px 4px 0px #f3f3f3;
+    transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    background-color: $background-color_6;
+    &:hover {
+      position: relative;
+      transform: translateY(5px);
+      box-shadow: 0px 0px 0px #f3f3f3;
+    }
+  }
+  .profile {
+    width: 50px;
+    height: 50px;
+    background-color: $background-color_7;
+    border-radius: 100%;
+    &:hover {
+      + {
+        .drop-down {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  &:hover {
+    .menu-content {
+      display: flex;
+    }
+  }
+}
+
+.sidebar {
+  grid-column: 1;
+  padding: 20px;
+  border-right: 2px solid rgb(177, 177, 177);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  .tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    li {
+      color: $color_1;
+      background-color: $background-color_8;
+      padding: 12px;
+      border-radius: 4px;
+      &:hover {
+        background-color: $background-color_9;
+        color: $color_5;
+      }
+    }
+    li.selected {
+      background-color: $background-color_9;
+      color: $color_5;
+    }
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  .menu {
+    padding: 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+.search {
+  display: flex;
+  background-color: $background-color_9;
+  align-items: center;
+  padding-left: 4px;
+  width: 50%;
+  border-radius: 6px;
+  input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 6px;
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+  img {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+  }
+}
+
+.sort {
+  font-weight: bold;
+}
+
+#sort-input {
+  padding: 4px;
+  border-radius: 6px;
+  background-color: $background-color_9;
+}
+
+.todo-container {
+  display: grid;
+  padding: 0px 16px;
+  row-gap: 12px;
+  column-gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  overflow-y: scroll;
+}
+
+.todo {
+  color: $color_5;
+  min-height: 200px;
+  max-height: 250px;
+  background-color: $background-color_9;
+  border-radius: 6px;
+  padding: 6px;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: 70px auto min-content;
+  grid-template-rows: min-content auto 50px;
+  border: 1px solid gray;
+  a {
+    font-size: 15px;
+    text-decoration: none;
+    color: $color_6;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .title {
+    padding: 6px;
+    background-color: $background-color_6;
+    border-top-left-radius: 6px;
+    border: 1px solid gray;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 2;
+    &:focus {
+      background-color: $background-color_10;
+    }
+  }
+  .is-important {
+    padding: 5px;
+    background-color: $background-color_11;
+    border-top-right-radius: 6px;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    svg {
+      fill: rgb(230, 230, 230);
+      height: 30px;
+      width: 30px;
+      &:hover {
+        fill: rgb(237, 255, 147);
+      }
+    }
+    svg.important {
+      fill: rgb(255, 255, 0);
+    }
+  }
+  .description {
+    grid-column: 1/3;
+    color: $color_7;
+    background-color: $background-color_12;
+    padding: 8px;
+    border: 1px solid gray;
+    grid-column: span 3;
+    &:focus {
+      background-color: $background-color_13;
+    }
+  }
+  .file-container {
+    grid-column: 1/4;
+    display: flex;
+    width: 100%;
+    padding: 0px 5px;
+    background-color: $background-color_14;
+    border: 1px solid gray;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding-left: 5px;
+  }
+  .file-input {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 10px;
+    &::file-selector-button {
+      background-color: $background-color_15;
+      border: none;
+      border-radius: 4px;
+      padding: 8px;
+      margin-right: 1cap;
+      color: $color_8;
+    }
+  }
+  button {
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      background-color: $background-color_16;
+      color: $color_1;
+    }
+  }
+  .update {
+    background-color: $background-color_17;
+    border-bottom-left-radius: 6px;
+    border: 1px solid gray;
+    padding: 8px;
+  }
+  .mark-complete {
+    background-color: $background-color_18;
+    border: 1px solid gray;
+    padding: 8px;
+  }
+  .delete {
+    background-color: $background-color_19;
+    border-bottom-right-radius: 6px;
+    border: 1px solid gray;
+    padding: 8px;
+  }
+}
+
+.todo.completed {
+  * {
+    color: $color_1;
+  }
+  .title {
+    text-decoration: line-through;
+    background-color: $background-color_20;
+  }
+  .description {
+    text-decoration: line-through;
+    background-color: $background-color_21;
+  }
+  .is-important {
+    background-color: $background-color_22;
+  }
+  .update {
+    background-color: $background-color_23;
+  }
+  .mark-complete {
+    background-color: $background-color_16;
+  }
+  .delete {
+    background-color: $background-color_24;
+  }
+  .file-container {
+    background-color: $background-color_25;
+  }
+}
+
+.form-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: $background-color_26;
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
+
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  transition: opacity 5s ease;
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .checkbox-container {
+    display: flex;
+    gap: 8px;
+  }
+  #description {
+    height: 100px;
+  }
+  input[type='text'] {
+    padding: 8px;
+    width: 30vw;
+  }
+  textarea {
+    padding: 8px;
+    width: 30vw;
+  }
+  input[type='file'] {
+    width: 30vw;
+  }
+  label {
+    font-weight: 500;
+  }
+  button {
+    padding: 10px 40px;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: $background-color_27;
+    box-shadow: 3px 4px 0px #f3f3f3;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      position: relative;
+      transform: translateY(4px);
+      box-shadow: 0px 0px 0px #bafec2;
+    }
+  }
+}
+
+.form-container.hidden {
+  ~ {
+    .sidebar {
+      grid-row: 2 / -1;
+    }
+  }
+}
+
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 25%;
+  z-index: 1000;
+}
+
+.toast {
+  background-color: $background-color_28;
+  color: $color_9;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.login {
+  width: 500px;
+  height: 600px;
+  background-color: $background-color_29;
+  z-index: 1;
+  position: relative;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  .line {
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    &:nth-child(1) {
+      top: 30px;
+      height: 20px;
+      width: 100%;
+      background-color: $background-color_30;
+    }
+    &:nth-child(2) {
+      top: 60px;
+      height: 20px;
+      width: 100%;
+      background-color: $background-color_31;
+    }
+    &:nth-child(3) {
+      right: 30px;
+      height: 100%;
+      width: 20px;
+      background-color: $background-color_32;
+    }
+    &:nth-child(4) {
+      right: 60px;
+      height: 100%;
+      width: 20px;
+      background-color: $background-color_33;
+    }
+  }
+  h1 {
+    position: relative;
+    font-size: 48px;
+    padding-top: 60px;
+    padding-left: 30px;
+    z-index: 2;
+    color: $color_10;
+    span {
+      color: $color_8;
+      &:not(.selected) {
+        color: $color_11;
+        &:hover {
+          color: $color_12;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  form {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    padding-top: 80px;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 60%;
+    }
+    input {
+      width: 100%;
+      height: 40px;
+      font-size: 16px;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+    button {
+      width: 40%;
+      align-self: center;
+      height: 50px;
+      margin-left: -10px;
+      font-size: 20px;
+      border-radius: 8px;
+      background-color: $background-color_34;
+      box-shadow: 3px 4px 0px #f3f3f3;
+      transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
+      cursor: pointer;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      &:hover {
+        position: relative;
+        transform: translateY(5px);
+        box-shadow: 0px 0px 0px #f3f3f3;
+      }
+    }
+  }
+  .message {
+    width: 100%;
+    font-size: 18px;
+  }
+  .message.success {
+    color: $color_13;
+  }
+  .message.error {
+    color: $color_14;
+  }
+  form#reset-password {
+    padding-top: 10px;
+    button {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+.reset-password {
+  display: none;
+  font-size: 21px;
+  align-self: end;
+}
+
+.profile-page {
+  width: 500px;
+  height: 600px;
+  background-color: $background-color_35;
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 100px auto;
+  grid-template-rows: 100px 30px auto;
+  gap: 20px;
+  align-items: center;
+  border-radius: 16px;
+  img {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    background-color: $background-color_36;
+  }
+  .profile-name {
+    font-size: 36px;
+  }
+  h2 {
+    font-size: 26px;
+    grid-column: 1/3;
+  }
+  form {
+    align-self: flex-start;
+    grid-column: 1/3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    label {
+      font-size: 20px;
+    }
+    input {
+      width: 70%;
+      height: 30px;
+    }
+
+    button {
+      width: 150px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      background-color: $background-color_5;
+      font-size: 14px;
+      box-shadow: 3px 4px 0px #f3f3f3;
+      transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
+      cursor: pointer;
+      background-color: $background-color_6;
+      &:hover {
+        position: relative;
+        transform: translateY(5px);
+        box-shadow: 0px 0px 0px #f3f3f3;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    grid-column: span 3;
+  }
+  .sidebar {
+    grid-column: span 3;
+  }
+  .main {
+    grid-column: span 3;
+  }
+  .todo-form {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .input-container {
+      input {
+        width: 70vw;
+      }
+      textarea {
+        width: 70vw;
+      }
+    }
+  }
+  .form-container {
+    grid-column: 1 / 4;
+  }
+  .form-container.hidden {
+    ~ {
+      .sidebar {
+        grid-row: unset;
+      }
+    }
+  }
+  .search {
+    width: 100%;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+  }
+  .sort {
+    align-self: flex-start;
+  }
+  .login {
+    margin: 20px;
+    height: 600px;
+    * {
+      font-size: 16px;
+    }
+    h1 {
+      span {
+        font-size: 36px;
+        line-height: 1;
+      }
+      padding-top: 20px;
+    }
+    form {
+      padding-top: 40px;
+      button {
+        margin: 0;
+        margin-top: 0;
+      }
+    }
+  }
+}
