@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   verified: { type: Boolean, default: false },
   todos: { type: mongoose.Types.ObjectId, ref: 'Todo' },
+  proile_image: { type: String },
 });
 
 const User = mongoose.model('User', userSchema);

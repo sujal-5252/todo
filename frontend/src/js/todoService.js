@@ -30,7 +30,7 @@ class TodoService {
 
         if (
           error.response &&
-          error.response.data.message === 'jwt expired' &&
+          error.response.status === 401 &&
           !originalRequest._retry
         ) {
           originalRequest._retry = true;

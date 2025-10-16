@@ -25,7 +25,6 @@ class TodoController {
     try {
       const userId = req.user._id;
       const attachment = req.file.filename;
-      console.log(JSON.parse(req.body.tags));
       const newTodo = {
         ...req.body,
         userId,
@@ -46,6 +45,7 @@ class TodoController {
       const newTodo = req.body;
 
       await this.todoService.updateTodo(req.user._id, req.params.id, newTodo);
+
       res.json({ success: true });
     } catch (err) {
       next(err);
@@ -57,6 +57,7 @@ class TodoController {
       const id = req.params.id;
 
       await this.todoService.deleteTodo(id);
+
       res.json({ success: true });
     } catch (err) {
       next(err);

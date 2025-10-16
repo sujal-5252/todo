@@ -27,6 +27,7 @@ class AuthController {
 
       try {
         user = await this.userService.getUserByEmail(email);
+
         if (user.verified) {
           return next(new Error('User with the given email already exist'));
         }
