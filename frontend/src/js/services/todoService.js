@@ -36,9 +36,14 @@ class TodoService {
           originalRequest._retry = true;
 
           try {
-            const response = await axios.post(
+            const response = await axios.get(
               'http://localhost:3001/auth/refresh-token',
-              { refreshToken: localStorage.getItem('refresh-token') }
+              {
+                headers: {
+                  Authorization:
+                    'Bearer ' + localStorage.getItem('refresh-token'),
+                },
+              }
             );
             console.log(response);
 

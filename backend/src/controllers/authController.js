@@ -104,19 +104,8 @@ class AuthController {
 
   refreshToken = async (req, res, next) => {
     try {
-      const { refreshToken } = req.body;
-
-      if (!refreshToken) {
-        res.status(401);
-        return next(new Error('Invalid refresh token provided'));
-      }
-
-      const payload = jwt.verify(refreshToken, process.env.SECRET);
-      const newAccessToken = generateTokenFromUserId(payload.userId, 'access');
-      const newRefreshToken = generateTokenFromUserId(
-        payload.userId,
-        'refresh'
-      );
+      const newAccessToken = generateTokenFromUserId(req.user._id, 'access');
+      const newRefreshToken = generateTokenFromUserId(req.user._id, 'refresh');
 
       res.send({
         success: true,

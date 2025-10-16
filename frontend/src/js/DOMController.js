@@ -367,6 +367,10 @@ class DOMController {
     });
   }
 
+  addEventListenerProfilePage() {
+    const profileImg = 
+  }
+
   renderResetPasswordPage() {
     const heading = document.querySelector('.login h1');
     const form = document.querySelector('.login form');
