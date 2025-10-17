@@ -8,7 +8,7 @@ class TodoService {
   constructor() {
     this.api.interceptors.request.use(
       function (config) {
-        const token = localStorage.getItem('access-token');
+        const token = localStorage.getItem('access_token');
 
         if (token) {
           config.headers['Authorization'] = `Bearer ${token}`;
@@ -41,15 +41,15 @@ class TodoService {
               {
                 headers: {
                   Authorization:
-                    'Bearer ' + localStorage.getItem('refresh-token'),
+                    'Bearer ' + localStorage.getItem('refresh_token'),
                 },
               }
             );
             console.log(response);
 
             if (response) {
-              localStorage.setItem('access-token', response.data.accessToken);
-              localStorage.setItem('refresh-token', response.data.refreshToken);
+              localStorage.setItem('access_token', response.data.accessToken);
+              localStorage.setItem('refresh_token', response.data.refreshToken);
 
               originalRequest.headers[
                 'Authorization'
@@ -59,8 +59,8 @@ class TodoService {
             }
           } catch (error) {
             console.log(error);
-            localStorage.removeItem('access-token');
-            localStorage.removeItem('refresh-token');
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
 
             window.location.reload();
           }
@@ -118,6 +118,13 @@ class TodoService {
   async deleteTodo(id) {
     const response = await this.api.delete(`/todo/${id}`);
     console.log(response);
+  }
+
+  async getUserInfo() {
+    const response = await this.api.get('/user');
+    const user = response.data.result;
+
+    return user;
   }
 }
 

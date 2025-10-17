@@ -1,4 +1,7 @@
-import { Todo, TodoUpdate } from '../../validators/Todo.js';
+import {
+  todoValidator,
+  todoUpdateValidator,
+} from '../../validators/todoValidator.js';
 
 export default function validateTodo(type) {
   return async (req, res, next) => {
@@ -8,9 +11,9 @@ export default function validateTodo(type) {
       }
 
       if (type === 'create') {
-        req.body = await Todo.validate(req.body);
+        req.body = await todoValidator.validate(req.body);
       } else if (type === 'update') {
-        req.body = await TodoUpdate.validate(req.body);
+        req.body = await todoUpdateValidator.validate(req.body);
       }
 
       next();

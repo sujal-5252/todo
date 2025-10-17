@@ -3,6 +3,7 @@ import Todo from '../models/Todo.js';
 class TodoService {
   async fetchAllTodo(userId, query, tag, sortBy) {
     let searchQuery;
+
     if (tag && sortBy) {
       searchQuery = {
         $and: [
@@ -53,7 +54,6 @@ class TodoService {
     tags = [],
     attachment,
   }) {
-    console.log(attachment);
     const todo = new Todo({
       userId,
       title,

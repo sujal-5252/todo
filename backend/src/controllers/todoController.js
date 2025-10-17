@@ -24,7 +24,7 @@ class TodoController {
   createTodo = async (req, res, next) => {
     try {
       const userId = req.user._id;
-      const attachment = req.file.filename;
+      const attachment = req.file ? req.file.filename : null;
       const newTodo = {
         ...req.body,
         userId,

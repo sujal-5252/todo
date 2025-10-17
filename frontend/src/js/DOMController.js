@@ -247,19 +247,24 @@ class DOMController {
     const todoForm = document.querySelector('.todo-form');
     const todoFormContainer = document.querySelector('.form-container');
     const createButton = document.querySelector('.create');
+    const logoutButton = document.querySelector('.logout');
+    const profilePictrue = document.querySelector('nav .profile');
 
     createButton.addEventListener('click', () =>
       todoFormContainer.classList.toggle('hidden')
     );
 
-    const logoutButton = document.querySelector('.logout');
-
     logoutButton.addEventListener('click', () => {
-      localStorage.removeItem('access-token');
-      localStorage.removeItem('refresh-token');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
 
       window.location.reload();
     });
+
+    profilePictrue.addEventListener(
+      'click',
+      () => (window.location.href = window.location.origin + '/profile')
+    );
 
     todoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -274,7 +279,7 @@ class DOMController {
       const description =
         descriptionInput.value !== '' ? descriptionInput.value : null;
       const isImportant = isImportantCheckbox.checked;
-      const tags = tagsInput.value.split(',');
+      const tags = tagsInput.value.split(',').filter((t) => t && t !== ' ');
       const attachment = file.files[0];
 
       await this.todoService.createTodo({
@@ -368,7 +373,10 @@ class DOMController {
   }
 
   addEventListenerProfilePage() {
-    const profileImg = 
+    const profileImg = document.querySelector('.profile-page img');
+    const profileNameEl = document.querySelector('.profile-page .profile-name');
+    const updateProfileForm = document.querySelector('form.update-profile');
+    const nameInput = updateProfileForm.querySelector('input#name');
   }
 
   renderResetPasswordPage() {
@@ -552,12 +560,16 @@ class DOMController {
       div.id !== 'toast-container' ? div.classList.add('hidden') : ''
     );
 
-    if (localStorage.getItem('access-token')) {
-      document.querySelector('.app').classList.remove('hidden');
+    if (localStorage.getItem('access_token')) {
+      if (window.location.pathname.startsWith('/profile')) {
+        document.querySelector('.profile-page').classList.remove('hidden');
+      } else {
+        document.querySelector('.app').classList.remove('hidden');
 
-      await this.updateTodoList();
-      await this.updateTagList();
-      this.addEventListenersHomePage();
+        await this.updateTodoList();
+        await this.updateTagList();
+        this.addEventListenersHomePage();
+      }
     } else {
       document.querySelector('.login').classList.remove('hidden');
 

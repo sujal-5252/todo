@@ -17,8 +17,8 @@ class AuthService {
     try {
       const response = await this.api.post('/login', { email, password });
 
-      localStorage.setItem('access-token', response.data.accessToken);
-      localStorage.setItem('refresh-token', response.data.refreshToken);
+      localStorage.setItem('access_token', response.data.accessToken);
+      localStorage.setItem('refresh_token', response.data.refreshToken);
     } catch (err) {
       throw new Error(err.response.data.message);
     }

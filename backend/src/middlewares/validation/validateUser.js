@@ -1,4 +1,4 @@
-import User from '../../validators/User.js';
+import User from '../../validators/userValidator.js';
 
 export default async function validateUser(req, res, next) {
   try {

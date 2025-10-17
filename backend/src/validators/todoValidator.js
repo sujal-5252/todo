@@ -1,6 +1,6 @@
 import { object, string, boolean, mixed } from 'yup';
 
-const Todo = object({
+const todoValidator = object({
   title: string().min(1).required(),
   description: string().nullable(),
   isCompleted: boolean(),
@@ -9,10 +9,10 @@ const Todo = object({
   attachment: mixed().nullable(),
 });
 
-const TodoUpdate = Todo.concat(
+const todoUpdateValidator = todoValidator.concat(
   object({
     title: string().min(1),
   })
 );
 
-export { Todo, TodoUpdate };
+export { todoValidator, todoUpdateValidator };
