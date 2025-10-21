@@ -1,7 +1,6 @@
 import { generateTokenFromUserId } from '../utils/tokenUtil.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import jwt from 'jsonwebtoken';
 
 class AuthController {
   constructor(userService) {
@@ -20,7 +19,7 @@ class AuthController {
 
   signup = async (req, res, next) => {
     try {
-      const { email, password } = req.body;
+      const { name, email, password } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
 
       let user;
@@ -34,7 +33,7 @@ class AuthController {
 
         this.userService.updatePassword(email, hashedPassword);
       } catch {
-        user = await this.userService.createUser(email, hashedPassword);
+        user = await this.userService.createUser(name, email, hashedPassword);
       }
 
       this.sendVerificationLink(
@@ -95,7 +94,7 @@ class AuthController {
 
       await this.userService.verifyUser(email, otp);
 
-      res.send({ success: true, messsage: 'User Verified' });
+      res.json({ success: true, messsage: 'User Verified' });
     } catch (err) {
       res.status(401);
       next(err);
@@ -107,7 +106,7 @@ class AuthController {
       const newAccessToken = generateTokenFromUserId(req.user._id, 'access');
       const newRefreshToken = generateTokenFromUserId(req.user._id, 'refresh');
 
-      res.send({
+      res.json({
         success: true,
         accessToken: newAccessToken,
         refreshToken: newRefreshToken,
@@ -146,7 +145,7 @@ class AuthController {
 
       this.sendVerificationLink(email, newOtp);
 
-      res.send({ success: true });
+      res.json({ success: true });
     } catch (err) {
       next(err);
     }
@@ -164,6 +163,27 @@ class AuthController {
       await this.transporter.sendMail(mailOptions);
     } catch (error) {
       return error;
+    }
+  }
+
+  getUser(req, res) {
+    const { name, email, profileImage } = req.user;
+    console.log(name, email, profileImage);
+
+    res.json({ success: true, result: { name, email, profileImage } });
+  }
+
+  async updateUser(req, res, next) {
+    try {
+      const user = req.user;
+      const { name } = req.body;
+
+      user.name = name;
+      await user.save();
+
+      res.json({ success: true });
+    } catch (err) {
+      next(err);
     }
   }
 }

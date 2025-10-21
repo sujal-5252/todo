@@ -14,5 +14,7 @@ authRouter.post('/verify', authController.verify);
 authRouter.post('/send-otp', authController.sendOtp);
 authRouter.get('/refresh-token', isAuthenticated, authController.refreshToken);
 authRouter.post('/reset-password', authController.resetPassword);
+authRouter.get('/user', isAuthenticated, authController.getUser);
+authRouter.post('/user', isAuthenticated, authController.updateUser);
 
 export default authRouter;

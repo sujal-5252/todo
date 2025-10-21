@@ -5,9 +5,9 @@ class AuthService {
     baseURL: 'http://localhost:3001/auth/',
   });
 
-  async signup(email, password) {
+  async signup(name, email, password) {
     try {
-      await this.api.post('/signup', { email, password });
+      await this.api.post('/signup', { name, email, password });
     } catch (err) {
       throw new Error(err.response.data.message);
     }
@@ -34,6 +34,33 @@ class AuthService {
 
   async resetPassword(email, otp, password) {
     await this.api.post('/reset-password', { email, otp, password });
+  }
+
+  async getUserInfo() {
+    const response = await this.api.get('/user', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+      },
+    });
+    const user = response.data.result;
+
+    return user;
+  }
+
+  async updateUserInfo(name) {
+    const response = await this.api.post(
+      '/user',
+      { name },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      }
+    );
+
+    const user = response.data.result;
+
+    return user;
   }
 }
 

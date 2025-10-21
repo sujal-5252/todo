@@ -2,8 +2,8 @@ import Otp from '../models/Otp.js';
 import User from '../models/User.js';
 
 class UserService {
-  async createUser(email, password) {
-    const user = new User({ email, password });
+  async createUser(name, email, password) {
+    const user = new User({ name, email, password });
     await user.save();
     return user;
   }

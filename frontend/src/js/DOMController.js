@@ -325,6 +325,9 @@ class DOMController {
       resetPassword.style.display = 'block';
       message.textContent = '';
 
+      document.querySelector('.login form input#name').disabled = true;
+
+      document.querySelector('.login form div#name').classList.add('hidden');
       document.querySelector('.login form button').textContent = 'Login';
     });
 
@@ -335,6 +338,7 @@ class DOMController {
       resetPassword.style.display = 'none';
       message.textContent = '';
 
+      document.querySelector('.login form div#name').classList.remove('hidden');
       document.querySelector('.login form button').textContent =
         'Create Account';
     });
@@ -349,12 +353,13 @@ class DOMController {
 
       const email = document.querySelector('.login input#email').value;
       const password = document.querySelector('.login input#password').value;
+      const name = document.querySelector('.login input#name').value;
 
       try {
         messageEl.className = 'message success';
 
         if (formButton.textContent === 'Create Account') {
-          await this.authService.signup(email, password);
+          await this.authService.signup(name, email, password);
           this.renderOtpPage(email);
         } else if (formButton.textContent === 'Login') {
           await this.authService.login(email, password);
@@ -370,13 +375,6 @@ class DOMController {
     resetPassword.addEventListener('click', () => {
       this.renderResetPasswordPage();
     });
-  }
-
-  addEventListenerProfilePage() {
-    const profileImg = document.querySelector('.profile-page img');
-    const profileNameEl = document.querySelector('.profile-page .profile-name');
-    const updateProfileForm = document.querySelector('form.update-profile');
-    const nameInput = updateProfileForm.querySelector('input#name');
   }
 
   renderResetPasswordPage() {
@@ -553,6 +551,32 @@ class DOMController {
     form.appendChild(button);
   }
 
+  async renderProfilePage() {
+    const profileImg = document.querySelector('.profile-page img');
+    const profileNameEl = document.querySelector('.profile-page .profile-name');
+
+    const updateProfileForm = document.querySelector('form.update-profile');
+    const nameInput = updateProfileForm.querySelector('input#profile-name');
+
+    const userInfo = await this.authService.getUserInfo();
+
+    if (userInfo.profileImage) {
+      profileImg.src = userInfo.profileImage;
+    }
+
+    profileNameEl.textContent = userInfo.name;
+    nameInput.value = userInfo.name;
+
+    updateProfileForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      await this.authService.updateUserInfo(nameInput.value);
+      this.showToast('Profile Updated');
+
+      this.renderProfilePage();
+    });
+  }
+
   async renderHomePage() {
     const divs = document.querySelectorAll('body > div');
 
@@ -563,12 +587,20 @@ class DOMController {
     if (localStorage.getItem('access_token')) {
       if (window.location.pathname.startsWith('/profile')) {
         document.querySelector('.profile-page').classList.remove('hidden');
+
+        await this.renderProfilePage();
       } else {
         document.querySelector('.app').classList.remove('hidden');
 
         await this.updateTodoList();
         await this.updateTagList();
         this.addEventListenersHomePage();
+
+        const profileName = (await this.authService.getUserInfo()).name;
+
+        document.querySelector(
+          'nav .name'
+        ).textContent = `Hello, ${profileName}`;
       }
     } else {
       document.querySelector('.login').classList.remove('hidden');

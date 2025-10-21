@@ -119,13 +119,6 @@ class TodoService {
     const response = await this.api.delete(`/todo/${id}`);
     console.log(response);
   }
-
-  async getUserInfo() {
-    const response = await this.api.get('/user');
-    const user = response.data.result;
-
-    return user;
-  }
 }
 
 export default TodoService;

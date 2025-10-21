@@ -104,11 +104,15 @@
         <span id="login">Login</span>
       </h1>
       <form>
-        <div>
+        <div id="name">
+          <label for="profile-name">Name</label>
+          <input type="text" name="profile-name" id="name" required />
+        </div>
+        <div id="email">
           <label for="email">Email</label>
           <input type="email" name="email" id="email" required />
         </div>
-        <div>
+        <div id="password">
           <label for="password">Password</label>
           <input type="password" name="password" id="password" required />
           <a class="reset-password">Reset Password</a>
@@ -124,8 +128,8 @@
 
       <h2>Update Profile</h2>
       <form class="update-profile">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" />
+        <label for="profile-name">Name:</label>
+        <input type="text" name="profile-name" id="profile-name" />
         <button type="submit">Update Profile</button>
       </form>
     </div>

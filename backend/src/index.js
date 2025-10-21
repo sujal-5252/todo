@@ -33,7 +33,7 @@ app.use('/api/todo', isAuthenticated, todoRouter);
 app.get('/api/user', isAuthenticated, (req, res) => {
   const user = req.user;
 
-  res.send({
+  res.json({
     success: true,
     result: { email: user.email, profileImage: user.profileImage },
   });
