@@ -338,6 +338,8 @@ class DOMController {
       resetPassword.style.display = 'none';
       message.textContent = '';
 
+      document.querySelector('.login form input#name').disabled = false;
+
       document.querySelector('.login form div#name').classList.remove('hidden');
       document.querySelector('.login form button').textContent =
         'Create Account';

@@ -36,7 +36,7 @@ class AuthController {
         user = await this.userService.createUser(name, email, hashedPassword);
       }
 
-      this.sendVerificationLink(
+      this.sendVerificationOtp(
         email,
         await this.userService.generateOtp(user._id)
       );
@@ -143,7 +143,7 @@ class AuthController {
       const user = await this.userService.getUserByEmail(email);
       const newOtp = await this.userService.generateOtp(user._id);
 
-      this.sendVerificationLink(email, newOtp);
+      this.sendVerificationOtp(email, newOtp);
 
       res.json({ success: true });
     } catch (err) {
@@ -151,7 +151,7 @@ class AuthController {
     }
   };
 
-  async sendVerificationLink(email, otp) {
+  async sendVerificationOtp(email, otp) {
     try {
       const mailOptions = {
         from: process.env.EMAIL,
