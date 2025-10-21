@@ -4,12 +4,14 @@ import User from '../models/User.js';
 class UserService {
   async createUser(name, email, password) {
     const user = new User({ name, email, password });
+
     await user.save();
     return user;
   }
 
   async getUserById(userId) {
     const user = await User.findById(userId);
+
     if (!user) {
       throw new Error('User not found');
     }
@@ -18,6 +20,7 @@ class UserService {
 
   async getUserByEmail(email) {
     const user = await User.findOne({ email: email });
+
     if (!user) {
       throw new Error('User not found');
     }
@@ -26,6 +29,7 @@ class UserService {
 
   async isVerified(userId) {
     const user = await User.findById(userId);
+
     if (!user) {
       throw new Error('User not found');
     }
@@ -69,6 +73,7 @@ class UserService {
       },
       { upsert: true, new: true, setDefaultsOnInsert: true }
     );
+
     return otp.value;
   }
 }

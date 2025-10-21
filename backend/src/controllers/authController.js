@@ -1,6 +1,6 @@
-import { generateTokenFromUserId } from '../utils/tokenUtil.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
+import { generateTokenFromUserId } from '../utils/tokenUtil.js';
 
 class AuthController {
   constructor(userService) {

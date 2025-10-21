@@ -34,7 +34,7 @@ class TodoController {
 
       const result = await this.todoService.createTodo(newTodo);
 
-      res.send({ success: true, result: result });
+      res.json({ success: true, result: result });
     } catch (err) {
       next(err);
     }

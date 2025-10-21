@@ -198,6 +198,10 @@ nav {
     height: 50px;
     background-color: $background-color_7;
     border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
     &:hover {
       + {
         .drop-down {
@@ -211,6 +215,7 @@ nav {
 .dropdown-menu {
   &:hover {
     .menu-content {
+      text-align: center;
       display: flex;
     }
   }
@@ -719,6 +724,17 @@ nav {
         box-shadow: 0px 0px 0px #f3f3f3;
       }
     }
+  }
+
+  .profile-initial {
+    width: 70px;
+    height: 70px;
+    background-color: $background-color_7;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
   }
 }
 

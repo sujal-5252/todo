@@ -552,7 +552,9 @@ class DOMController {
   }
 
   async renderProfilePage() {
-    const profileImg = document.querySelector('.profile-page img');
+    const profileInitial = document.querySelector(
+      '.profile-page .profile-initial'
+    );
     const profileNameEl = document.querySelector('.profile-page .profile-name');
 
     const updateProfileForm = document.querySelector('form.update-profile');
@@ -560,10 +562,8 @@ class DOMController {
 
     const userInfo = await this.authService.getUserInfo();
 
-    if (userInfo.profileImage) {
-      profileImg.src = userInfo.profileImage;
-    }
-
+    console.log(profileInitial);
+    profileInitial.textContent = userInfo.name[0];
     profileNameEl.textContent = userInfo.name;
     nameInput.value = userInfo.name;
 
@@ -601,6 +601,7 @@ class DOMController {
         document.querySelector(
           'nav .name'
         ).textContent = `Hello, ${profileName}`;
+        document.querySelector('nav .profile').textContent = profileName[0];
       }
     } else {
       document.querySelector('.login').classList.remove('hidden');

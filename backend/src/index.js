@@ -1,9 +1,8 @@
 import Express from 'express';
 import cors from 'cors';
-// import morgan from 'morgan';
+import mongoose from 'mongoose';
 import errorHandler from './middlewares/errorHandler.js';
 import todoRouter from './routers/todoRouter.js';
-import mongoose from 'mongoose';
 import authRouter from './routers/authRouter.js';
 import logger from './middlewares/logger.js';
 import isAuthenticated from './middlewares/auth/isAuthenticated.js';
@@ -29,15 +28,6 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRouter);
 app.use('/api/todo', isAuthenticated, todoRouter);
-
-app.get('/api/user', isAuthenticated, (req, res) => {
-  const user = req.user;
-
-  res.json({
-    success: true,
-    result: { email: user.email, profileImage: user.profileImage },
-  });
-});
 
 app.use(errorHandler);
 
