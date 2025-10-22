@@ -1,69 +1,15 @@
-// TODO: CHANGE VARIABLE NAMES
-$color_1: rgb(230, 230, 230);
-$color_2: rgb(117, 117, 255);
-$color_3: rgb(255, 111, 111);
-$color_4: rgb(136, 136, 240);
-$color_5: black;
-$color_6: rgb(98, 98, 98);
-$color_7: rgb(47, 47, 47);
-$color_8: white;
-$color_9: #000000;
-$color_10: rgb(121, 121, 251);
-$color_11: rgb(148, 148, 148);
-$color_12: rgb(168, 168, 168);
-$color_13: rgb(10, 174, 10);
-$color_14: rgb(255, 88, 54);
-$font-family_1: 'Outfit';
-$font-family_2: 'Paytone One';
-$background-color_1: rgb(22, 22, 22);
-$background-color_2: rgb(255, 139, 255);
-$background-color_3: rgba(33, 33, 33, 0.861);
-$background-color_4: #1b1451;
-$background-color_5: rgb(255, 227, 85);
-$background-color_6: rgb(255, 117, 117);
-$background-color_7: rgb(161, 51, 161);
-$background-color_8: rgb(0, 0, 0);
-$background-color_9: rgb(230, 230, 230);
-$background-color_10: #ee2929;
-$background-color_11: rgb(254, 140, 53);
-$background-color_12: rgb(169, 220, 140);
-$background-color_13: rgb(134, 248, 134);
-$background-color_14: #ec9168;
-$background-color_15: rgb(170, 25, 18);
-$background-color_16: black;
-$background-color_17: rgb(255, 230, 90);
-$background-color_18: rgb(17, 158, 246);
-$background-color_19: rgb(255, 144, 144);
-$background-color_20: #3b3131;
-$background-color_21: #26282a;
-$background-color_22: #676767;
-$background-color_23: #555d50;
-$background-color_24: #534b4f;
-$background-color_25: #4a3636;
-$background-color_26: rgba(255, 255, 255, 0.096);
-$background-color_27: rgb(8, 220, 8);
-$background-color_28: #ffffff;
-$background-color_29: rgba(58, 58, 58, 0.805);
-$background-color_30: rgba(138, 138, 138, 0.222);
-$background-color_31: rgba(173, 173, 173, 0.409);
-$background-color_32: rgba(142, 142, 142, 0.409);
-$background-color_33: rgba(96, 96, 96, 0.409);
-$background-color_34: rgb(140, 255, 140);
-$background-color_35: #464646dc;
-$background-color_36: red;
-
 @import 'https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap';
 @import 'https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap';
 /* * {
   outline: 1px solid red;
 }; */
 * {
-  font-family: $font-family_1;
+  font-family: 'Outfit';
 }
 
 body {
-  color: $color_1;
-  background-color: $background-color_1;
+  color: rgb(230, 230, 230);
+  background-color: rgb(22, 22, 22);
   background-size: 40px 40px;
   background-image: linear-gradient(
       to right,
@@ -81,7 +27,7 @@ button {
 }
 
 a {
-  color: $color_2;
+  color: rgb(117, 117, 255);
   text-decoration: underline;
   cursor: pointer;
   margin-bottom: 10px;
@@ -109,16 +55,16 @@ textarea {
     -webkit-box-shadow: inset 0 0 6px rgba(255, 0, 234, 0.3);
   }
   &::-webkit-scrollbar-thumb {
-    background-color: $background-color_2;
+    background-color: rgb(255, 139, 255);
     outline: 1px solid rgb(0, 128, 255);
   }
 }
 
 h2 {
-  font-family: $font-family_2;
+  font-family: 'Paytone One';
   font-size: 22px;
   font-weight: 500;
-  color: $color_3;
+  color: rgb(255, 111, 111);
   padding-bottom: 15px;
 }
 
@@ -131,16 +77,16 @@ h2 {
 nav {
   grid-column: 1 / 3;
   padding: 20px;
-  background-color: $background-color_3;
+  background-color: rgba(33, 33, 33, 0.861);
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   h1 {
-    font-family: $font-family_2;
+    font-family: 'Paytone One';
     font-size: 28px;
     font-weight: bold;
-    color: $color_4;
+    color: rgb(136, 136, 240);
   }
   .container {
     display: flex;
@@ -154,7 +100,7 @@ nav {
   .menu-content {
     display: none;
     position: absolute;
-    background-color: $background-color_4;
+    background-color: #1b1451;
     min-width: 150px;
     padding-top: 20px;
     z-index: 1;
@@ -167,7 +113,7 @@ nav {
   .create {
     padding: 10px 20px;
     border-radius: 6px;
-    background-color: $background-color_5;
+    background-color: rgb(255, 227, 85);
     font-size: 14px;
     box-shadow: 3px 4px 0px #f3f3f3;
     transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -181,12 +127,12 @@ nav {
   .logout {
     padding: 10px 20px;
     border-radius: 6px;
-    background-color: $background-color_5;
+    background-color: rgb(255, 227, 85);
     font-size: 14px;
     box-shadow: 3px 4px 0px #f3f3f3;
     transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
     cursor: pointer;
-    background-color: $background-color_6;
+    background-color: rgb(255, 117, 117);
     &:hover {
       position: relative;
       transform: translateY(5px);
@@ -196,7 +142,7 @@ nav {
   .profile {
     width: 50px;
     height: 50px;
-    background-color: $background-color_7;
+    background-color: rgb(161, 51, 161);
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -233,18 +179,18 @@ nav {
     flex-direction: column;
     gap: 12px;
     li {
-      color: $color_1;
-      background-color: $background-color_8;
+      color: rgb(230, 230, 230);
+      background-color: rgb(0, 0, 0);
       padding: 12px;
       border-radius: 4px;
       &:hover {
-        background-color: $background-color_9;
-        color: $color_5;
+        background-color: rgb(230, 230, 230);
+        color: black;
       }
     }
     li.selected {
-      background-color: $background-color_9;
-      color: $color_5;
+      background-color: rgb(230, 230, 230);
+      color: black;
     }
   }
 }
@@ -262,7 +208,7 @@ nav {
 
 .search {
   display: flex;
-  background-color: $background-color_9;
+  background-color: rgb(230, 230, 230);
   align-items: center;
   padding-left: 4px;
   width: 50%;
@@ -291,7 +237,7 @@ nav {
 #sort-input {
   padding: 4px;
   border-radius: 6px;
-  background-color: $background-color_9;
+  background-color: rgb(230, 230, 230);
 }
 
 .todo-container {
@@ -304,10 +250,10 @@ nav {
 }
 
 .todo {
-  color: $color_5;
+  color: black;
   min-height: 200px;
   max-height: 250px;
-  background-color: $background-color_9;
+  background-color: rgb(230, 230, 230);
   border-radius: 6px;
   padding: 6px;
   display: grid;
@@ -318,14 +264,14 @@ nav {
   a {
     font-size: 15px;
     text-decoration: none;
-    color: $color_6;
+    color: rgb(98, 98, 98);
     &:hover {
       text-decoration: underline;
     }
   }
   .title {
     padding: 6px;
-    background-color: $background-color_6;
+    background-color: rgb(255, 117, 117);
     border-top-left-radius: 6px;
     border: 1px solid gray;
     font-weight: 500;
@@ -334,12 +280,12 @@ nav {
     align-items: center;
     grid-column: span 2;
     &:focus {
-      background-color: $background-color_10;
+      background-color: #ee2929;
     }
   }
   .is-important {
     padding: 5px;
-    background-color: $background-color_11;
+    background-color: rgb(254, 140, 53);
     border-top-right-radius: 6px;
     border: 1px solid gray;
     display: flex;
@@ -360,13 +306,13 @@ nav {
   }
   .description {
     grid-column: 1/3;
-    color: $color_7;
-    background-color: $background-color_12;
+    color: rgb(47, 47, 47);
+    background-color: rgb(169, 220, 140);
     padding: 8px;
     border: 1px solid gray;
     grid-column: span 3;
     &:focus {
-      background-color: $background-color_13;
+      background-color: rgb(134, 248, 134);
     }
   }
   .file-container {
@@ -374,7 +320,7 @@ nav {
     display: flex;
     width: 100%;
     padding: 0px 5px;
-    background-color: $background-color_14;
+    background-color: #ec9168;
     border: 1px solid gray;
     display: flex;
     gap: 8px;
@@ -387,35 +333,35 @@ nav {
     margin-bottom: auto;
     padding-left: 10px;
     &::file-selector-button {
-      background-color: $background-color_15;
+      background-color: rgb(170, 25, 18);
       border: none;
       border-radius: 4px;
       padding: 8px;
       margin-right: 1cap;
-      color: $color_8;
+      color: white;
     }
   }
   button {
     font-weight: 500;
     cursor: pointer;
     &:hover {
-      background-color: $background-color_16;
-      color: $color_1;
+      background-color: black;
+      color: rgb(230, 230, 230);
     }
   }
   .update {
-    background-color: $background-color_17;
+    background-color: rgb(255, 230, 90);
     border-bottom-left-radius: 6px;
     border: 1px solid gray;
     padding: 8px;
   }
   .mark-complete {
-    background-color: $background-color_18;
+    background-color: rgb(17, 158, 246);
     border: 1px solid gray;
     padding: 8px;
   }
   .delete {
-    background-color: $background-color_19;
+    background-color: rgb(255, 144, 144);
     border-bottom-right-radius: 6px;
     border: 1px solid gray;
     padding: 8px;
@@ -424,37 +370,37 @@ nav {
 
 .todo.completed {
   * {
-    color: $color_1;
+    color: rgb(230, 230, 230);
   }
   .title {
     text-decoration: line-through;
-    background-color: $background-color_20;
+    background-color: #3b3131;
   }
   .description {
     text-decoration: line-through;
-    background-color: $background-color_21;
+    background-color: #26282a;
   }
   .is-important {
-    background-color: $background-color_22;
+    background-color: #676767;
   }
   .update {
-    background-color: $background-color_23;
+    background-color: #555d50;
   }
   .mark-complete {
-    background-color: $background-color_16;
+    background-color: black;
   }
   .delete {
-    background-color: $background-color_24;
+    background-color: #534b4f;
   }
   .file-container {
-    background-color: $background-color_25;
+    background-color: #4a3636;
   }
 }
 
 .form-container {
   padding-top: 2rem;
   padding-bottom: 2rem;
-  background-color: $background-color_26;
+  background-color: rgba(255, 255, 255, 0.096);
   grid-column: 1/3;
   grid-row: 2/3;
 }
@@ -497,7 +443,7 @@ nav {
     padding: 10px 40px;
     font-size: 16px;
     border-radius: 6px;
-    background-color: $background-color_27;
+    background-color: rgb(8, 220, 8);
     box-shadow: 3px 4px 0px #f3f3f3;
     transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     cursor: pointer;
@@ -525,8 +471,8 @@ nav {
 }
 
 .toast {
-  background-color: $background-color_28;
-  color: $color_9;
+  background-color: #ffffff;
+  color: 000000;
   padding: 10px 20px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -541,7 +487,7 @@ nav {
 .login {
   width: 500px;
   height: 600px;
-  background-color: $background-color_29;
+  background-color: rgba(58, 58, 58, 0.805);
   z-index: 1;
   position: relative;
   border-radius: 16px;
@@ -555,25 +501,25 @@ nav {
       top: 30px;
       height: 20px;
       width: 100%;
-      background-color: $background-color_30;
+      background-color: rgba(138, 138, 138, 0.222);
     }
     &:nth-child(2) {
       top: 60px;
       height: 20px;
       width: 100%;
-      background-color: $background-color_31;
+      background-color: rgba(173, 173, 173, 0.409);
     }
     &:nth-child(3) {
       right: 30px;
       height: 100%;
       width: 20px;
-      background-color: $background-color_32;
+      background-color: rgba(142, 142, 142, 0.409);
     }
     &:nth-child(4) {
       right: 60px;
       height: 100%;
       width: 20px;
-      background-color: $background-color_33;
+      background-color: rgba(96, 96, 96, 0.409);
     }
   }
   h1 {
@@ -582,13 +528,13 @@ nav {
     padding-top: 60px;
     padding-left: 30px;
     z-index: 2;
-    color: $color_10;
+    color: rgb(121, 121, 251);
     span {
-      color: $color_8;
+      color: white;
       &:not(.selected) {
-        color: $color_11;
+        color: rgb(148, 148, 148);
         &:hover {
-          color: $color_12;
+          color: rgb(168, 168, 168);
           text-decoration: underline;
           cursor: pointer;
         }
@@ -628,7 +574,7 @@ nav {
       margin-left: -10px;
       font-size: 20px;
       border-radius: 8px;
-      background-color: $background-color_34;
+      background-color: rgb(140, 255, 140);
       box-shadow: 3px 4px 0px #f3f3f3;
       transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
       cursor: pointer;
@@ -649,10 +595,10 @@ nav {
     font-size: 18px;
   }
   .message.success {
-    color: $color_13;
+    color: rgb(10, 174, 10);
   }
   .message.error {
-    color: $color_14;
+    color: rgb(255, 88, 54);
   }
   form#reset-password {
     padding-top: 10px;
@@ -672,7 +618,7 @@ nav {
 .profile-page {
   width: 500px;
   height: 600px;
-  background-color: $background-color_35;
+  background-color: #464646dc;
   padding: 50px;
   display: grid;
   grid-template-columns: 100px auto;
@@ -684,7 +630,7 @@ nav {
     width: 70px;
     height: 70px;
     border-radius: 100%;
-    background-color: $background-color_36;
+    background-color: red;
   }
   .profile-name {
     font-size: 36px;
@@ -712,12 +658,12 @@ nav {
       width: 150px;
       padding: 10px 20px;
       border-radius: 6px;
-      background-color: $background-color_5;
+      background-color: rgb(255, 227, 85);
       font-size: 14px;
       box-shadow: 3px 4px 0px #f3f3f3;
       transition: transform 0.15s ease-in-out, box-shadow 0.3s ease-in-out;
       cursor: pointer;
-      background-color: $background-color_6;
+      background-color: rgb(255, 117, 117);
       &:hover {
         position: relative;
         transform: translateY(5px);
@@ -729,7 +675,7 @@ nav {
   .profile-initial {
     width: 70px;
     height: 70px;
-    background-color: $background-color_7;
+    background-color: rgb(161, 51, 161);
     border-radius: 100%;
     display: flex;
     align-items: center;
