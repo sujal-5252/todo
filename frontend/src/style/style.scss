@@ -472,12 +472,13 @@ nav {
 
 .toast {
   background-color: #ffffff;
-  color: 000000;
+  color: black;
   padding: 10px 20px;
   border-radius: 5px;
   margin-bottom: 10px;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+  border: 2px solid white;
 }
 
 .toast.show {
