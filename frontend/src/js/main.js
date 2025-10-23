@@ -1,6 +1,7 @@
 import '../style/reset.css';
 import '../style/style.scss';
-import DOMController from './DOMController.js';
+import DomController from './DomController.js';
 
-const domController = new DOMController();
+const domController = new DomController();
+
 await domController.renderHomePage();

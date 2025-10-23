@@ -1,7 +1,7 @@
-import AuthService from './services/authService.js';
-import TodoService from './services/todoService.js';
+import AuthService from './services/AuthService.js';
+import TodoService from './services/TodoService.js';
 
-class DOMController {
+class DomController {
   constructor() {
     this.authService = new AuthService();
     this.todoService = new TodoService();
@@ -166,6 +166,7 @@ class DOMController {
         await this.todoService.updateTodo(id, {
           isCompleted: !isComplete,
         });
+
         todoEl.classList.toggle('completed');
         fileContainer.classList.toggle('file-container');
 
@@ -599,10 +600,13 @@ class DOMController {
 
         const profileName = (await this.authService.getUserInfo()).name;
 
-        document.querySelector(
-          'nav .name'
-        ).textContent = `Hello, ${profileName}`;
-        document.querySelector('nav .profile').textContent = profileName[0];
+        const profileNameEl = document.querySelector('nav .name');
+        const profileInitialEl = document.querySelector('nav .profile');
+
+        console.log(profileNameEl, profileInitialEl);
+
+        profileNameEl.textContent = `Hello, ${profileName}`;
+        profileInitialEl.textContent = profileName[0];
       }
     } else {
       document.querySelector('.login').classList.remove('hidden');
@@ -612,4 +616,4 @@ class DOMController {
   }
 }
 
-export default DOMController;
+export default DomController;
