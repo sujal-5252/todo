@@ -1,0 +1,70 @@
+@media (max-width: 768px) {
+  nav {
+    grid-column: span 3;
+  }
+  .sidebar {
+    grid-column: span 3;
+  }
+  .main {
+    grid-column: span 3;
+  }
+  .todo-form {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .input-container {
+      input {
+        width: 70vw;
+      }
+      textarea {
+        width: 70vw;
+      }
+    }
+  }
+  .form-container {
+    grid-column: 1 / 4;
+  }
+  .form-container.hidden {
+    ~ {
+      .sidebar {
+        grid-row: unset;
+      }
+    }
+  }
+  .search {
+    width: 100%;
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+  }
+  .sort {
+    align-self: flex-start;
+  }
+  .login {
+    margin: 20px;
+    height: 600px;
+    * {
+      font-size: 16px;
+    }
+    h1 {
+      span {
+        font-size: 36px;
+        line-height: 1;
+      }
+      padding-top: 20px;
+    }
+    form {
+      padding-top: 40px;
+      button {
+        margin: 0;
+        margin-top: 0;
+      }
+    }
+  }
+  .profile-page {
+    margin: 20px;
+  }
+}
