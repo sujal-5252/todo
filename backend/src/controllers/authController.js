@@ -178,7 +178,14 @@ class AuthController {
       const user = req.user;
       const { name } = req.body;
 
+      const profileImage = req.file ? req.file.filename : null;
+
+      if (profileImage) {
+        user.profileImage = profileImage;
+      }
+
       user.name = name;
+
       await user.save();
 
       res.json({ success: true });

@@ -47,16 +47,18 @@ class AuthService {
     return user;
   }
 
-  async updateUserInfo(name) {
-    const response = await this.api.post(
-      '/user',
-      { name },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      }
-    );
+  async updateUserInfo(name, profile_image) {
+    const formData = new FormData();
+
+    formData.append('name', name);
+    formData.append('profile_image', profile_image);
+
+    const response = await this.api.post('/user', formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     const user = response.data.result;
 

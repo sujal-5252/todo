@@ -123,11 +123,13 @@
     </div>
 
     <div class="profile-page">
-      <div class="profile-initial"></div>
+      <img class="profile-image" src="" alt="" />
       <div class="profile-name">Sujal Gupta</div>
 
       <h2>Update Profile</h2>
-      <form class="update-profile">
+      <form class="update-profile" enctype="multipart/form-data">
+        <label for="profile_image">Profile Image</label>
+        <input type="file" name="profile_image" id="profile_image" />
         <label for="profile-name">Name:</label>
         <input type="text" name="profile-name" id="profile-name" />
         <button type="submit">Update Profile</button>

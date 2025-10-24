@@ -158,13 +158,20 @@ class TodoPageController {
     await TodoPageController.updateTagList();
     TodoPageController.addEventListenersTodoPage();
 
-    const profileName = (await authService.getUserInfo()).name;
+    const user = await authService.getUserInfo();
+    const profileName = user.name;
 
     const profileNameEl = document.querySelector('nav .name');
-    const profileInitialEl = document.querySelector('nav .profile');
+    const profile = document.querySelector('nav .profile');
+
+    const profileImageEl = document.createElement('img');
+
+    profileImageEl.classList.toggle('profile-image');
 
     profileNameEl.textContent = `Hello, ${profileName}`;
-    profileInitialEl.textContent = profileName[0];
+    profileImageEl.src = 'http://localhost:3001/uploads/' + user.profileImage;
+
+    profile.appendChild(profileImageEl);
   }
 
   static createTodoElement(todo) {
