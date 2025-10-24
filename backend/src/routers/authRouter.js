@@ -24,7 +24,7 @@ authRouter.post('/send-otp', authController.sendOtp);
 authRouter.get('/refresh-token', isAuthenticated, authController.refreshToken);
 authRouter.post('/reset-password', authController.resetPassword);
 authRouter.get('/user', isAuthenticated, authController.getUser);
-authRouter.post(
+authRouter.put(
   '/user',
   isAuthenticated,
   upload.single('profile_image'),

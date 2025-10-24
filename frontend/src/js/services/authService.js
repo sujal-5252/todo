@@ -53,7 +53,7 @@ class AuthService {
     formData.append('name', name);
     formData.append('profile_image', profile_image);
 
-    const response = await this.api.post('/user', formData, {
+    const response = await this.api.put('/user', formData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         'Content-Type': 'multipart/form-data',

@@ -19,7 +19,7 @@ async function isAuthenticated(req, res, next) {
     const user = await new UserService().getUserById(payload.userId);
 
     if (!user) {
-      return next(new Error('User with given ID not found'));
+      return next(new Error('Invalid Token'));
     }
 
     req.user = user;

@@ -169,7 +169,12 @@ class TodoPageController {
     profileImageEl.classList.toggle('profile-image');
 
     profileNameEl.textContent = `Hello, ${profileName}`;
-    profileImageEl.src = 'http://localhost:3001/uploads/' + user.profileImage;
+
+    if (user.profileImage) {
+      profileImageEl.src = 'http://localhost:3001/uploads/' + user.profileImage;
+    } else {
+      profileImageEl.src = 'user-icon.png';
+    }
 
     profile.appendChild(profileImageEl);
   }

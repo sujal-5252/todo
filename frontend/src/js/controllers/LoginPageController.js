@@ -238,6 +238,7 @@ class LoginPageController {
     container.appendChild(input);
     container.appendChild(resendLink);
     container.appendChild(message);
+
     form.appendChild(container);
     form.appendChild(button);
   }

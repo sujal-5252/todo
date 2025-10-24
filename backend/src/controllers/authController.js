@@ -184,6 +184,11 @@ class AuthController {
         user.profileImage = profileImage;
       }
 
+      if (!name) {
+        res.status(400);
+        throw new Error('Name cannot be empty');
+      }
+
       user.name = name;
 
       await user.save();

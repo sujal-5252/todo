@@ -15,8 +15,12 @@ class ProfilePageController {
 
     const userInfo = await authService.getUserInfo();
 
-    profileImageEl.src =
-      'http://localhost:3001/uploads/' + userInfo.profileImage;
+    if (userInfo.profileImage) {
+      profileImageEl.src =
+        'http://localhost:3001/uploads/' + userInfo.profileImage;
+    } else {
+      profileImageEl.src = 'user-icon.png';
+    }
     profileNameEl.textContent = userInfo.name;
     nameInput.value = userInfo.name;
 
