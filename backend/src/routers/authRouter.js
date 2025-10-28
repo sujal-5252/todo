@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import AuthController from '../controllers/authController.js';
+import AuthController from '../controllers/AuthController.js';
 import UserService from '../services/userService.js';
 import validateUser from '../middlewares/validation/validateUser.js';
 import isAuthenticated from '../middlewares/auth/isAuthenticated.js';
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-const upload = multer({ storage });
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 authRouter.post('/signup', validateUser, authController.signup);
 authRouter.post('/login', validateUser, authController.login);
