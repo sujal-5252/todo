@@ -1,6 +1,6 @@
-import LoginPageController from './loginPageController.js';
-import ProfilePageController from './profilePageController.js';
-import TodoPageController from './todoPageController.js';
+import LoginPageController from './LoginPageController.js';
+import ProfilePageController from './ProfilePageController.js';
+import TodoPageController from './TodoPageController.js';
 
 class MainController {
   static showToast(message = 'This is a toast notification!') {

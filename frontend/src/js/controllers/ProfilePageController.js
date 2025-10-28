@@ -21,6 +21,7 @@ class ProfilePageController {
     } else {
       profileImageEl.src = 'user-icon.png';
     }
+
     profileNameEl.textContent = userInfo.name;
     nameInput.value = userInfo.name;
 

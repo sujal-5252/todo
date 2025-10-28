@@ -55,6 +55,7 @@ class TodoPageController {
       }
 
       const tag = e.target.textContent;
+
       await this.updateTodoList({
         query: '',
         tag: tag,
@@ -227,6 +228,7 @@ class TodoPageController {
 
     if (todo.attachment) {
       const fileLink = document.createElement('a');
+
       fileLink.href = 'http://localhost:3001/uploads/' + todo.attachment;
       fileLink.textContent = todo.attachment;
       console.log(fileLink.textContent);
