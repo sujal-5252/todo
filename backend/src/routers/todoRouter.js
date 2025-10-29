@@ -1,7 +1,7 @@
 import Express from 'express';
 import multer from 'multer';
 import TodoService from '../services/todoService.js';
-import TodoController from '../controllers/todoController.js';
+import TodoController from '../controllers/TodoController.js';
 import validateTodo from '../middlewares/validation/validateTodo.js';
 import checkIdExist from '../middlewares/checkTodoExist.js';
 
