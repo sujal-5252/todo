@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import AuthController from '../controllers/AuthController.js';
-import UserService from '../services/userService.js';
+import UserService from '../services/UserService.js';
 import validateUser from '../middlewares/validation/validateUser.js';
 import isAuthenticated from '../middlewares/auth/isAuthenticated.js';
 

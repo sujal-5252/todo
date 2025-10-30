@@ -1,4 +1,4 @@
-import User from '../../validators/userValidator.js';
+import userValidator from '../../validators/userValidator.js';
 
 export default async function validateUser(req, res, next) {
   try {
@@ -7,7 +7,7 @@ export default async function validateUser(req, res, next) {
       throw new Error('Request body missing');
     }
 
-    req.body = await User.validate(req.body);
+    req.body = await userValidator.validate(req.body);
     next();
   } catch (err) {
     res.status(400);
